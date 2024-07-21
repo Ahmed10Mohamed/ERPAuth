@@ -48,9 +48,23 @@
                         </ul>
                     </li>
                     <!--End admins -->
+                                          <!-- Role permation -->
+                    <li class="menu-item @if ($class == 'role') open @endif">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons ti ti-settings"></i>
+                            <div data-i18n="Roles & Permission">Roles & Permission</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item @if ($class == 'role') active @endif">
+                                <a href="{{ route('Role.index') }}" class="menu-link">
+                                    <div data-i18n="Roles">Roles</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
-                    <!--End clothes -->
-
+                      <!--End Role permation -->
+                     
 
 
                     <!--start setting -->

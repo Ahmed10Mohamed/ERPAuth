@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\RoleController;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin\Auth',], function () {
     Route::get('/login', 'LoginController@showLoginForm')->name('admin_login');
+
     Route::post('/login', 'LoginController@login');
 
     Route::get('/logout', 'LoginController@logout')->name('admin_logout');
@@ -31,7 +34,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'admi
     /***** Dashboard *****/
     Route::get('/', 'App\Http\Controllers\Admin\DashboardController@index')->name('Admin-Dashboard');
 
-    Route::get('/Log', 'App\Http\Controllers\Admin\DashboardController@logs')->name('Log.index');
 
     /***** profile *****/
     Route::get('/profile', 'ProfileController@profile')->name('My-Profile');
@@ -45,5 +47,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'admi
     Route::post('admins/save_password/{id}', 'AdminController@password_save');
     Route::get('not_authorized', 'AdminController@not_authorized');
     Route::get('delete_admin', 'AdminController@delete_admin');
+
+     /***** Role *****/
+     Route::resource('Role',RoleController::class)->except(['create','edit','show']);
 
 });

@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admin_permissions', function (Blueprint $table) {
+        Schema::create('permissions', function (Blueprint $table) {
             $table->id();
-            $table->integer('admin')->nullable();
-            $table->string('permission')->nullable();
+            $table->string('page')->nullable();
+            $table->enum('permation',['all','read','create','update','delete','custom_update'])->nullable();
+            $table->foreignId("role_id")->nullable()->constrained("roles")->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

@@ -40,12 +40,6 @@ class AdminRepository
                 ]);
             }
         }
-            $logs = [];
-            $logs['action'] = 'add new record';
-            $logs['table_action'] = 'Admin';
-            $logs['record_id'] =$admin->id;
-
-            add_log($logs);
             DB::commit();
 
         } catch (\Exception $e) {
@@ -81,12 +75,7 @@ class AdminRepository
                     ]);
                 }
 }
-            $logs = [];
-            $logs['action'] = 'modified';
-            $logs['table_action'] = 'Admin';
-            $logs['record_id'] =$admin->id;
 
-            add_log($logs);
             DB::commit();
 
         } catch (\Exception $e) {
@@ -104,15 +93,11 @@ class AdminRepository
             // delete all Permission of this user
             AdminPermission::where('admin', $admin->id)->delete();
             $admin->delete();
-            $logs = [];
-            $logs['action'] = 'destroy';
-            $logs['table_action'] = 'Admin';
-            add_log($logs);
-
+        
              DB::commit();
 
          } catch (\Exception $e) {
-            
+
              DB::rollback();
              //  dd($e);
             return 'error';
