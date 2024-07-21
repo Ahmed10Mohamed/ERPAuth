@@ -50,5 +50,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'admi
 
      /***** Role *****/
      Route::resource('Role',RoleController::class)->except(['create','edit','show']);
+          /***** Pemission *****/
+          Route::resource('Pemission',PermissionController::class)->except(['show']);
+
 
 });

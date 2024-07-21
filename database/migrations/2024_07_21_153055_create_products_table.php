@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('permissions', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('page')->nullable();
-            $table->string('permation')->nullable();
-            $table->foreignId("role_id")->nullable()->constrained("roles")->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('title')->nullable();
+            $table->string('image')->nullable();
+            $table->text('details')->nullable();
+
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admin_permissions');
+        Schema::dropIfExists('products');
     }
 };
