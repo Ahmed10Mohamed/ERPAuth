@@ -34,15 +34,25 @@
 
                     <!--admins -->
 
-                    <li class="menu-item @if ($class == 'admins') open @endif">
+                    <li class="menu-item @if ($class == 'admins' || $class == 'users' || $class == 'emp') open @endif">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons ti ti-users"></i>
-                            <div data-i18n="Admins">Admins</div>
+                            <div data-i18n="Admin&User&Employee">Admin&User&Employee</div>
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item @if ($class == 'admins') active @endif">
                                 <a href="{{ route('admins.index') }}" class="menu-link">
-                                    <div data-i18n="List">List</div>
+                                    <div data-i18n="Admins">Admins</div>
+                                </a>
+                            </li>
+                            <li class="menu-item @if ($class == 'users') active @endif">
+                                <a href="{{ route('User.index') }}" class="menu-link">
+                                    <div data-i18n="Users">Users</div>
+                                </a>
+                            </li>
+                            <li class="menu-item @if ($class == 'emp') active @endif">
+                                <a href="{{ route('Employee.index') }}" class="menu-link">
+                                    <div data-i18n="Employees">Employees</div>
                                 </a>
                             </li>
                         </ul>

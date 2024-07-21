@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
@@ -47,11 +49,16 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'admi
     Route::post('admins/save_password/{id}', 'AdminController@password_save');
     Route::get('not_authorized', 'AdminController@not_authorized');
     Route::get('delete_admin', 'AdminController@delete_admin');
+              /***** User *****/
+    Route::resource('User',UserController::class)->except(['show']);
+          /***** Employee *****/
+    Route::resource('Employee',EmployeeController::class)->except(['show']);
+
 
      /***** Role *****/
      Route::resource('Role',RoleController::class)->except(['create','edit','show']);
           /***** Pemission *****/
-          Route::resource('Pemission',PermissionController::class)->except(['show']);
+    Route::resource('Pemission',PermissionController::class)->except(['show']);
 
 
 });
