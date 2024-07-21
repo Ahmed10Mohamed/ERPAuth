@@ -1,0 +1,34 @@
+
+/* response */
+
+@media (min-width: 1200px)
+{
+    .layout-menu-fixed .layout-menu, .layout-menu-fixed-offcanvas .layout-menu {
+        right: 0 !important;
+        left: unset !important;
+        direction: rtl !important;
+        text-align: right !important;
+
+    }
+    .layout-navbar-fixed:not(.layout-menu-collapsed) .layout-content-navbar:not(.layout-without-menu) .layout-navbar, .layout-menu-fixed.layout-navbar-fixed:not(.layout-menu-collapsed) .layout-content-navbar:not(.layout-without-menu) .layout-navbar, .layout-menu-fixed-offcanvas.layout-navbar-fixed:not(.layout-menu-collapsed) .layout-content-navbar:not(.layout-without-menu) .layout-navbar {
+        right: 17.25rem;
+        left: unset;
+    }
+}
+@media (min-width: 992px)
+{
+    html:not([dir=rtl]) .me-lg-5 {
+        margin-left: 3rem !important;
+        margin-right: unset !important;
+    }
+
+}
+
+@media (max-width: 767.98px) {
+    .layout-navbar-fixed:not(.layout-menu-collapsed) .layout-content-navbar:not(.layout-without-menu) .layout-navbar, .layout-menu-fixed.layout-navbar-fixed:not(.layout-menu-collapsed) .layout-content-navbar:not(.layout-without-menu) .layout-navbar, .layout-menu-fixed-offcanvas.layout-navbar-fixed:not(.layout-menu-collapsed) .layout-content-navbar:not(.layout-without-menu) .layout-navbar {
+        right: 1rem;
+    }
+    .content-wrapper {
+        right: 0;
+    }
+}

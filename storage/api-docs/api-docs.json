@@ -1,0 +1,147 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Fitshly Ecommerce Multi Vendor",
+        "version": "0.1"
+    },
+    "paths": {
+        "http://127.0.0.1:8000/api/Categories": {
+            "get": {
+                "summary": "Get Categories List",
+                "operationId": "242d6cb3316469206b4f859764e4df8d",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "http://127.0.0.1:8000/api/User/Social-Media": {
+            "post": {
+                "summary": "user login or register by social media",
+                "operationId": "aa3ba57889865c7dee3093d5a9d21a27",
+                "parameters": [
+                    {
+                        "name": "googl_id",
+                        "in": "query",
+                        "description": "required if user register or  login by google",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "facebook_if",
+                        "in": "query",
+                        "description": "required if user register or  login by facebook",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "apple_id",
+                        "in": "query",
+                        "description": "required if user register or  login by apple",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User registered by Socail Media successfully"
+                    },
+                    "422": {
+                        "description": "Validation errors"
+                    }
+                }
+            }
+        },
+        "http://127.0.0.1:8000/api/User/register": {
+            "post": {
+                "summary": "Register a new user",
+                "operationId": "9395381624e2fd0ff44da5d2292bc2ad",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "User's name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "phone",
+                        "in": "query",
+                        "description": "User's phone",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "lat",
+                        "in": "query",
+                        "description": "User's Location",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "long",
+                        "in": "query",
+                        "description": "User's Location",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "User's email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "User's password",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "User registered successfully"
+                    },
+                    "422": {
+                        "description": "Validation errors"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
