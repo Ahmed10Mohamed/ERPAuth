@@ -36,11 +36,7 @@ class Admin extends Authenticatable
      * @param  string  $token
      * @return void
      */
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new AdminResetPassword($token));
-    }
-
+  
     public function permissions()
     {
         return $this->belongsToMany('App\Permission');

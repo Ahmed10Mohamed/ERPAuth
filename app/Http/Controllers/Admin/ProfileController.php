@@ -45,9 +45,9 @@ class ProfileController extends Controller
         }
         $data = $this->profileRepository->update_profile($request);
         if($data === 'error'){
-            return redirect()->back()->with('fail','حدث خطأ ما ! حاول فى وقت لاحق');
+            return redirect()->back()->with('fail','Ops! Try Again');
         }else{
-            return redirect()->back()->with('success','تم تحديث بياناتك بنجاح');
+            return redirect()->back()->with('success','Updated Success');
 
         }
     }

@@ -37,4 +37,8 @@
           Please contact your site administrator.' => 'You do not have permission to view this page using the credentials that you have provided while login.  br / 
           Please contact your site administrator.',
   'Back to home' => 'Back to home',
+  'Please Enter Current Password' => 'Please Enter Current Password',
+  'Please Enter Password' => 'Please Enter Password',
+  'Password Must Be At Least 6 Charachters' => 'Password Must Be At Least 6 Charachters',
+  'Password & Its Confirmation Not Matching' => 'Password & Its Confirmation Not Matching',
 );

@@ -21,12 +21,7 @@
                 ><i class="ti-xs ti ti-lock me-1"></i> {{translate('Security')}}</a
               >
             </li>
-            @if(permission_group_checker(admin()->id, 'Steeks'))
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('Setting.General')}}"
-                  ><i class="ti-xs ti ti-settings me-1"></i> {{translate('General Setting')}}</a>
-              </li>
-                @endif
+           
 
           </ul>
           <div class="card mb-4">

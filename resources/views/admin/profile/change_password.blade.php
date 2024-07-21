@@ -21,19 +21,14 @@
                 ><i class="ti-xs ti ti-lock me-1"></i> {{translate('Security')}}</a
               >
             </li>
-            @if(permission_group_checker(admin()->id, 'Steeks'))
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('Setting.General')}}"
-                  ><i class="ti-xs ti ti-language me-1"></i> {{translate('General Setting')}}</a>
-              </li>
-            @endif
+          
 
           </ul>
           <!-- Change Password -->
           <div class="card mb-4">
             <h5 class="card-header">{{translate('Change Password')}}</h5>
             <div class="card-body">
-              <form id="formAccountSettings" method="POST" action="{{url('Dashboard/Update-Password')}}">
+              <form id="formAccountSettings" method="POST" action="{{url('Dashboard/update_password')}}">
                 {{csrf_field()}}
                 <div class="row">
                     <div class="mb-3 col-md-6 form-password-toggle fv-plugins-icon-container">

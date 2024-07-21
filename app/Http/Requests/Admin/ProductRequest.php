@@ -5,7 +5,7 @@ namespace App\Http\Requests\Admin;
 use App\Http\Requests\Api\BaseFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class ProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,8 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "ar_name"=>'required|string',
-            "en_name"=>'required|string',
+            "title"=>'required|string',
+            "price"=>'required',
             "image"=>(request()->isMethod('put'))?  'nullable|mimes:jpeg,png,jpg,gif,svg,gif,webp' : 'required|mimes:jpeg,png,jpg,gif,svg,gif,webp',
         ];
     }

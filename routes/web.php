@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Http;
@@ -59,6 +60,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'admi
      Route::resource('Role',RoleController::class)->except(['create','edit','show']);
           /***** Pemission *****/
     Route::resource('Pemission',PermissionController::class)->except(['show']);
+          /***** Product *****/
+    Route::resource('Product',ProductController::class)->except(['show']);
 
 
 });

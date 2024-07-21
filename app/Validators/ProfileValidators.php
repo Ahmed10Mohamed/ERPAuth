@@ -12,9 +12,9 @@ class ProfileValidators
 
        $validatedData = $request->validate([
            'name' => 'required',
-            'user_name' => 'required|unique:users,user_name,'.admin()->id.',id,deleted_at,NULL',
-            'email' => 'required|email|unique:users,email,'.admin()->id.',id,deleted_at,NULL',
-            'phone' => 'required|unique:users,phone,'.admin()->id.',id,deleted_at,NULL',
+            'user_name' => 'required|unique:admins,user_name,'.admin()->id.',id,deleted_at,NULL',
+            'email' => 'required|email|unique:admins,email,'.admin()->id.',id,deleted_at,NULL',
+            'phone' => 'required|unique:admins,phone,'.admin()->id.',id,deleted_at,NULL',
             'image' => 'mimes:jpeg,png,jpg,gif,svg,gif,webp',
 
         ],

@@ -58,7 +58,16 @@
                         </ul>
                     </li>
                     <!--End admins -->
-                                          <!-- Role permation -->
+                     <!--products -->
+                     <li class="menu-item @if ($class == 'product') active @endif">
+                        <a href="{{ route('Product.index') }}" class="menu-link ">
+                            <i class="menu-icon tf-icons  ti ti-package"></i>
+                            <div data-i18n="Products">Products</div>
+                        </a>
+
+                        </li>
+                                                    <!--products -->
+                               <!-- Role permation -->
                     <li class="menu-item @if ($class == 'role' || $class == 'permation') open @endif">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons ti ti-settings"></i>
