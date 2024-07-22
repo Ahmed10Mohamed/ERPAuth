@@ -64,6 +64,21 @@
                                         </div>
 
                                     </div>
+                                    <div class="row">
+                                            {{-- Roles --}}
+                                       <div class="col-6">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="Roles">Select Role <span style="color:#f00">*</span></label>
+                                                <select id="select2Basic" name="permition_id" class="select2 form-select form-select-lg select2-hidden-accessible" data-allow-clear="true" data-select2-id="select2Basic" tabindex="-1" aria-hidden="true">
+                                                            @foreach ($permitions as $permition )
+                                                                <option value="{{$permition->id}}" data-select2-id="{{$permition->id}}" @selected($permition->id == old('permition_id',$data->permition_id)) >{{optional($permition->role_info)->name}}</option>
+
+                                                            @endforeach
+                                                        </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                         <hr>
                                            <span  style="color: #f00">Please Enter New Password If You Went To Change Password</span>
 
@@ -89,53 +104,7 @@
 
                                     </div>
                                     <hr>
-                                                                     {{-- permation --}}
-                        <div class="col-12">
-                          <h5>{{translate('Role Permissions')}}</h5>
-                          <!-- Permission table -->
-                          <div class="table-responsive">
-                            <table class="table table-flush-spacing">
-                              <tbody>
-                                <tr>
-                                  <td class="text-nowrap fw-semibold">
 
-                                    {{translate('Administrator Access')}}
-                                    <i
-                                      class="ti ti-info-circle"
-                                      data-bs-toggle="tooltip"
-                                      data-bs-placement="top"
-                                      title="Allows a full access to the system"
-                                    ></i>
-                                  </td>
-                                  <td>
-                                    <div class="form-check">
-                                      <input class="form-check-input" type="checkbox" id="selectAll" />
-                                      <label class="form-check-label" for="selectAll"> {{translate('Select All')}} </label>
-                                    </div>
-                                  </td>
-                                </tr>
-                                @foreach (get_all_permissions() as $title_name => $title)
-                                    <tr>
-                                        @foreach ($title as $key => $value)
-                                            <td>
-                                                <div class="d-flex">
-                                                <div class="form-check me-3 me-lg-5">
-                                                    <input class="form-check-input" @if(permission_checker($data->id, $key)) checked @endif name="permission[]" type="checkbox" value="{{$key}}" id="{{$key}}" />
-                                                    <label class="form-check-label" for="{{$key}}"> {{$value}} </label>
-                                                </div>
-
-
-                                                </div>
-                                            </td>
-                                        @endforeach
-                                    </tr>
-                                @endforeach
-
-                              </tbody>
-                            </table>
-                          </div>
-                          <!-- Permission table -->
-                        </div>
 
 
                         <br>

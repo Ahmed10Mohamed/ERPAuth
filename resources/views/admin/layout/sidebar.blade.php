@@ -80,15 +80,15 @@
                                 </a>
                             </li>
                             <li class="menu-item @if ($class == 'permation') active @endif">
-                                <a href="{{ route('Pemission.index') }}" class="menu-link">
-                                    <div data-i18n="Pemissions">Pemissions</div>
+                                <a href="{{ route('Permation.index') }}" class="menu-link">
+                                    <div data-i18n="Permations">Permations</div>
                                 </a>
                             </li>
                         </ul>
                     </li>
 
                       <!--End Role permation -->
-                     
+
 
 
                     <!--start setting -->
@@ -99,7 +99,7 @@
                         </a>
                         <ul class="menu-sub">
 
-                           
+
                             <li class="menu-item @if ($class == 'account_setting') active @endif">
                                 <a href="{{ url('Dashboard/profile') }}" class="menu-link">
                                     <div data-i18n="Profile">Profile</div>

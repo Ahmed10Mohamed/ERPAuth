@@ -12,6 +12,7 @@ class AdminValidators
 
         $validatedData = $request->validate([
             'name' => 'required',
+            'permition_id'=>'required',
             'user_name' => 'required|unique:admins,user_name,NULL,id,deleted_at,NULL',
             'email' => 'nullable|email|unique:admins,email,NULL,id,deleted_at,NULL' ,
         ],
@@ -29,6 +30,7 @@ class AdminValidators
 
         $validatedData = $request->validate([
             'name' => 'required',
+            'permition_id'=>'required',
             'user_name' => 'required|unique:admins,user_name,'.$id.',id,deleted_at,NULL',
             'email' => 'required|email|unique:admins,email,'.$id.',id,deleted_at,NULL',
         ],

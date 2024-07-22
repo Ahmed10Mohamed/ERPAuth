@@ -10,13 +10,13 @@
             <div class="container-xxl flex-grow-1 container-p-y">
                 <div class="row me-2">
                     <div class="col-md-4">
-                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Admins</h4>
+                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Permation</h4>
                     </div>
                     <div class="col-md-8">
                         <div
                             class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0">
 
-                            <a href="{{ route('admins.create') }}" class="dt-button add-new btn btn-primary"><span><i
+                            <a href="{{ route('Permation.create') }}" class="dt-button add-new btn btn-primary"><span><i
                                         class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span
                                         class="d-none d-sm-inline-block">create</span></span></a>
                         </div>
@@ -32,21 +32,17 @@
                             <thead class="table-dark">
                                 <tr>
                                     <th>#</th>
-                                    <th>User Name</th>
-                                    <th>E-Mail</th>
-                                    <th>Phone</th>
-                                    <th>Role</th>
+                                    <th>Role Name</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
                                 @foreach ($all_data as $data)
+                                
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $data->name }}</td>
-                                        <td>{{ $data->email }}</td>
-                                        <td>{{ $data->phone }}</td>
-                                        <td>{{ optional($data->permition_info->role_info)->name}}</td>
+                                        <td>{{ optional($data->role_info)->name }}</td>
+
 
                                         <td>
                                             <div class="dropdown">
@@ -55,7 +51,7 @@
                                                     <i class="ti ti-dots-vertical"></i>
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="{{ route('admins.edit', $data->id) }}"><i
+                                                    <a class="dropdown-item" href="{{ route('Permation.edit', $data->id) }}"><i
                                                             class="ti ti-pencil me-1"></i> Edit</a>
 
 
@@ -72,13 +68,13 @@
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel1">Delete Admin
+                                                            <h5 class="modal-title" id="exampleModalLabel1">Delete Permation
                                                             </h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Close"></button>
                                                         </div>
                                                         <form role="form"
-                                                            action="{{ url('Dashboard/admins/' . $data->id) }}" class=""
+                                                            action="{{ url('Dashboard/Permation/' . $data->id) }}" class=""
                                                             method="POST">
                                                             <div class="modal-body">
 

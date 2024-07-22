@@ -23,7 +23,7 @@ class AdminController extends Controller
     public function index()
     {
         $class = 'admins';
-        $all_data = $this->adminRepository->all_admins();
+        $all_data = $this->adminRepository->index();
         return view('admin.pages.admins.index',compact('all_data','class'));
     }
 
@@ -37,8 +37,8 @@ class AdminController extends Controller
     {
 
         $class = 'admins';
-
-         return view('admin.pages.admins.create',compact('class'));
+        $permitions = $this->adminRepository->permition();
+         return view('admin.pages.admins.create',compact('class','permitions'));
     }
 
     /**
@@ -67,8 +67,9 @@ class AdminController extends Controller
     public function edit($id)
     {
         $class = 'admins';
-       $data = $this->adminRepository->admin_info($id);
-        return view('admin.pages.admins.edit')->with(['data'=>$data,'class'=>$class]);
+       $data = $this->adminRepository->show($id);
+       $permitions = $this->adminRepository->permition();
+        return view('admin.pages.admins.edit')->with(['data'=>$data,'class'=>$class,'permitions'=>$permitions]);
     }
 
 

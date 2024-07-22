@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\PermationRequest;
 use App\Models\Repositories\Admin\PermissionRepository;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,11 @@ class PermissionController extends Controller
     }
     public function index()
     {
-        //
+        $class = 'permation';
+        $all_data = $this->permissionRepository->index();
+        $pages = $this->permissionRepository->pages();
+        return view('admin.pages.permation.index',compact('all_data','class','pages'));
+
     }
 
     /**
@@ -38,9 +43,16 @@ class PermissionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PermationRequest $request)
     {
-        //
+
+        $data = $this->permissionRepository->store($request);
+        if($data === 'error'){
+            return redirect()->back()->with('fail','Opps! Try Again Later');
+        }else{
+            return redirect()->route('Permation.index')->with('success','Added Success');
+
+        }
     }
 
     /**

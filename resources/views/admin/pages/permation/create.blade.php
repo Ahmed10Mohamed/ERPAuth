@@ -3,8 +3,8 @@
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="py-3 mb-4 fw-bold"><span class="text-muted fw-light">Pemissions /</span>
-                Create Pemission
+            <h4 class="py-3 mb-4 fw-bold"><span class="text-muted fw-light">Permations /</span>
+                Create Permation
             </h4>
             {{-- start row --}}
             <div class="mb-4 row">
@@ -12,15 +12,15 @@
                 <div class="mb-4 col-md mb-md-0">
                   <div class="card">
                     <h5 class="card-header">
-                             Create Pemission
+                             Create Permation
 
                     </h5>
                     <div class="card-body">
 
-                      <form class="browser-default-validation" method="post" action="{{route('Pemission.store')}}" enctype="multipart/form-data">
+                      <form class="browser-default-validation" method="post" action="{{route('Permation.store')}}" enctype="multipart/form-data">
                               {{csrf_field()}}
 
-                                 
+
 
                                     <div class="row">
 
@@ -32,7 +32,7 @@
                                                 <select id="select2Basic" name="role_id" class="select2 form-select form-select-lg select2-hidden-accessible" data-allow-clear="true" data-select2-id="select2Basic" tabindex="-1" aria-hidden="true">
                                                             @foreach ($roles as $role )
                                                                 <option value="{{$role->id}}" data-select2-id="{{$role->id}}" @selected($role->id == old('role_id')) >{{$role->name}}</option>
-                                                                
+
                                                             @endforeach
                                                         </select>
                                             </div>
@@ -40,7 +40,7 @@
 
                                     </div>
 
-                                  
+
                                     <hr>
                                        {{-- permission --}}
                                        <div class="col-12">
@@ -48,6 +48,7 @@
                                         <!-- Permission table -->
                                                 @foreach ($pages as $page)
                                                     <h4 class="text-nowrap fw-semibold"><span>Page Name:-</span>{{$page->page_name}}</h4>
+                                                        <input type="hidden" name="page[]" value="{{$page->page_name}}" >
                                                         <div class="d-flex">
                                                             <div class="form-check me-3 me-lg-5">
                                                                 <input class="form-check-input" type="checkbox" id="all-{{$page->page_name}}" name="permation[]" value="all-{{$page->page_name}}" >
@@ -68,7 +69,7 @@
                                                             <div class="form-check me-3 me-lg-5">
                                                                 <input class="form-check-input" type="checkbox" id="custom-{{$page->page_name}}" name="permation[]" value="custom-{{$page->page_name}}" >
                                                                 <label class="form-check-label" for="custom-{{$page->page_name}}"> Custom Update </label>
-                                                                    
+
                                                             </div>
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="checkbox" id="delete-{{$page->page_name}}" name="permation[]" value="delete-{{$page->page_name}}" >
@@ -77,14 +78,14 @@
                                                         </div>
                                                         <div class="row custom_page" id="customPage-{{$page->id}}"></div>
                                                         <hr>
-                                                    
+
                                                 @endforeach
 
-                                      
+
                                         </div>
 
                                        <!-- end permission -->
-                      
+
                         <br>
 
 

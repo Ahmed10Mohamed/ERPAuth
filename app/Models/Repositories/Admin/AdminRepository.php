@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\AdminPermission;
 use App\Models\Category;
 use App\Models\CategoryRequest;
+use App\Models\Permission;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -13,12 +14,16 @@ class AdminRepository
 {
 
 
-    public function all_admins()
+    public function index()
     {
-        $admins = Admin::orderBy('id', 'DESC')->get();
+        $admins = Admin::where('id','!=',1)->orderBy('id', 'DESC')->get();
         return $admins;
     }
-    public function admin_info($id){
+    public function permition(){
+        $permitions = Permission::orderBy('id', 'DESC')->get();
+        return $permitions;
+    }
+    public function show($id){
         $admin = Admin::findOrfail($id);
         return $admin;
     }
@@ -53,7 +58,7 @@ class AdminRepository
     public function update($request,$id)
     {
 
-         $admin = $this->admin_info($id);
+         $admin = $this->show($id);
 
         $data = $request->except(['_token','password']);
         $data['updated_by']=admin()->id;
@@ -64,17 +69,6 @@ class AdminRepository
        try {
 
             $admin->update($data);
-            AdminPermission::where('admin', $admin->id)->delete();
-
-            // Check if there are new permissions and add them
-            if ($request->has('permission')) {
-                foreach ($request->permission as $permission) {
-                    AdminPermission::create([
-                        'admin' => $admin->id,
-                        'permission' => $permission,
-                    ]);
-                }
-}
 
             DB::commit();
 
@@ -87,13 +81,13 @@ class AdminRepository
 
     }
     public function destroy($id){
-        $admin = $this->admin_info($id);
+        $admin = $this->show($id);
         DB::beginTransaction();
         try {
             // delete all Permission of this user
             AdminPermission::where('admin', $admin->id)->delete();
             $admin->delete();
-        
+
              DB::commit();
 
          } catch (\Exception $e) {

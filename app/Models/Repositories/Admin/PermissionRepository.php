@@ -17,7 +17,7 @@ class PermissionRepository
 
     public function index()
     {
-        $permissions = Permission::where('id','!=',1)->orderBy('id', 'DESC')->get();
+        $permissions = Permission::orderBy('id', 'DESC')->get();
         return $permissions;
     }
     public function roles(){
@@ -35,14 +35,15 @@ class PermissionRepository
     public function store($request)
     {
 
-        $data = $request->except(['_token']);
+        $data = $request->except(['_token','permation','page']);
        DB::beginTransaction();
        try {
-
+            $data['permation'] = implode(',',$request->permation);
+            $data['page'] = implode(',',$request->page);
             Permission::create($data);
             DB::commit();
         } catch (\Exception $e) {
-            //  dd($e);
+             dd($e);
             DB::rollback();
            return 'error';
         }
