@@ -45,10 +45,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'admi
     Route::post('/update_password', 'ProfileController@password_save')->name('UpdatePassword');
 
     /***** admins *****/
-    Route::resource('admins', 'AdminController');
+    Route::resource('admins', 'AdminController')->middleware('admin_page');
     Route::get('admins/edit_password/{id}', 'AdminController@change_password');
     Route::post('admins/save_password/{id}', 'AdminController@password_save');
-    Route::get('not_authorized', 'AdminController@not_authorized');
+    Route::get('not_authorized', 'AdminController@not_authorized')->name('Not-Authorized');
     Route::get('delete_admin', 'AdminController@delete_admin');
               /***** User *****/
     Route::resource('User',UserController::class)->except(['show']);
@@ -59,7 +59,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'admi
      /***** Role *****/
      Route::resource('Role',RoleController::class)->except(['create','edit','show']);
           /***** Permation *****/
-    Route::resource('Permation',PermissionController::class)->except(['show']);
+    Route::resource('Permation',PermissionController::class)->except(['show'])->middleware('admin_page');
           /***** Product *****/
     Route::resource('Product',ProductController::class)->except(['show']);
 

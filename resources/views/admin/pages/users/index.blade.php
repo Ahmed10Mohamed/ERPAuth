@@ -10,17 +10,20 @@
             <div class="container-xxl flex-grow-1 container-p-y">
                 <div class="row me-2">
                     <div class="col-md-4">
-                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Users</h4>
+                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Employees</h4>
                     </div>
+
+                     @if(check_has_permission('insert-user'))
                     <div class="col-md-8">
                         <div
                             class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0">
 
-                            <a href="{{ route('User.create') }}" class="dt-button add-new btn btn-primary"><span><i
+                            <a href="{{ route('Employee.create') }}" class="dt-button add-new btn btn-primary"><span><i
                                         class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span
                                         class="d-none d-sm-inline-block">create</span></span></a>
                         </div>
                     </div>
+                    @endif
                 </div>
 
 
@@ -32,10 +35,13 @@
                             <thead class="table-dark">
                                 <tr>
                                     <th>#</th>
-                                    <th>User Name</th>
+                                    <th>Employee Name</th>
                                     <th>E-Mail</th>
                                     <th>Phone</th>
+                                    @if(check_has_permission('update-user') || check_has_permission('delete-user') )
+
                                     <th>Action</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
@@ -45,67 +51,69 @@
                                         <td>{{ $data->name }}</td>
                                         <td>{{ $data->email }}</td>
                                         <td>{{ $data->phone }}</td>
+                                        @if(check_has_permission('update-user') || check_has_permission('delete-user') )
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                        data-bs-toggle="dropdown">
+                                                        <i class="ti ti-dots-vertical"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                    @if(check_has_permission('update-user'))
+                                                        <a class="dropdown-item" href="{{ route('Employee.edit', $data->id) }}"><i
+                                                                class="ti ti-pencil me-1"></i> Edit</a>
+                                                        @endif
 
-                                        <td>
-                                            <div class="dropdown">
-                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                    data-bs-toggle="dropdown">
-                                                    <i class="ti ti-dots-vertical"></i>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="{{ route('User.edit', $data->id) }}"><i
-                                                            class="ti ti-pencil me-1"></i> Edit</a>
-
-
-
-                                                    <a class="dropdown-item" data-bs-toggle="modal"
-                                                        data-bs-target="#basicModal-{{ $data->id }}"><i
-                                                            class="ti ti-trash me-1"></i> Delete</a>
+                                                        @if(check_has_permission('delete-user'))
+                                                        <a class="dropdown-item" data-bs-toggle="modal"
+                                                            data-bs-target="#basicModal-{{ $data->id }}"><i
+                                                                class="ti ti-trash me-1"></i> Delete</a>
+                                                                @endif
+                                                            </div>
                                                 </div>
-                                            </div>
 
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="basicModal-{{ $data->id }}" tabindex="-1"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel1">Delete User
-                                                            </h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="basicModal-{{ $data->id }}" tabindex="-1"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel1">Delete Employee
+                                                                </h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                            </div>
+                                                            <form role="form"
+                                                                action="{{ url('Dashboard/Employee/' . $data->id) }}" class=""
+                                                                method="POST">
+                                                                <div class="modal-body">
+
+                                                                    <input name="_method" type="hidden" value="DELETE">
+                                                                    {{ csrf_field() }}
+                                                                    <p>Are You Sure?</p>
+
+
+
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-label-secondary"
+                                                                        data-bs-dismiss="modal">
+                                                                        Close
+                                                                    </button>
+                                                                    <button type="submit" class="btn btn-danger"
+                                                                        name='delete_modal'><i class="fa fa-trash"
+                                                                            aria-hidden="true"></i> Delete</button>
+                                                                    </a>
+                                                                </div>
+                                                            </form>
                                                         </div>
-                                                        <form role="form"
-                                                            action="{{ url('Dashboard/User/' . $data->id) }}" class=""
-                                                            method="POST">
-                                                            <div class="modal-body">
-
-                                                                <input name="_method" type="hidden" value="DELETE">
-                                                                {{ csrf_field() }}
-                                                                <p>Are You Sure?</p>
-
-
-
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-label-secondary"
-                                                                    data-bs-dismiss="modal">
-                                                                    Close
-                                                                </button>
-                                                                <button type="submit" class="btn btn-danger"
-                                                                    name='delete_modal'><i class="fa fa-trash"
-                                                                        aria-hidden="true"></i> Delete</button>
-                                                                </a>
-                                                            </div>
-                                                        </form>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            {{-- end --}}
+                                                {{-- end --}}
 
-                                        </td>
-
+                                            </td>
+                                        @endif
 
 
                                     </tr>

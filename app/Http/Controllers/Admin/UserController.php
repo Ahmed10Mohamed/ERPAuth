@@ -13,10 +13,13 @@ class UserController extends Controller
     public function __construct(UserRepository $userRepository){
         $this->userRepository = $userRepository;
     }
-   
+
 
     public function index()
     {
+        if ($redirect = redirect_if_no_permission('read-user')) {
+            return $redirect;
+        }
         $class = 'users';
         $all_data = $this->userRepository->index();
         return view('admin.pages.users.index',compact('all_data','class'));
@@ -30,6 +33,9 @@ class UserController extends Controller
 
     public function create()
     {
+        if ($redirect = redirect_if_no_permission('insert-user')) {
+            return $redirect;
+        }
 
         $class = 'users';
 
@@ -44,7 +50,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-      
+
         $data = $this->userRepository->store($request);
         if($data === 'error'){
             return redirect()->back()->with('fail','Opps! Try Again Later');
@@ -57,6 +63,9 @@ class UserController extends Controller
 
     public function edit($id)
     {
+        if ($redirect = redirect_if_no_permission('update-user')) {
+            return $redirect;
+        }
         $class = 'users';
        $data = $this->userRepository->show($id);
         return view('admin.pages.users.edit')->with(['data'=>$data,'class'=>$class]);
@@ -72,7 +81,7 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, $id)
     {
-        
+
         $data = $this->userRepository->update($request,$id);
         if($data === 'error'){
             return redirect()->back()->with('fail','Opps! Try Again Later');
@@ -93,6 +102,9 @@ class UserController extends Controller
 
     public function destroy($id)
     {
+        if ($redirect = redirect_if_no_permission('delete-user')) {
+            return $redirect;
+        }
         $data = $this->userRepository->destroy($id);
         if($data === 'error'){
             return redirect()->back()->with('fail','Opps! Try Again Later');
@@ -100,5 +112,5 @@ class UserController extends Controller
             return redirect()->route('User.index')->with('success','Deleted Success');
         }
     }
-    
+
 }

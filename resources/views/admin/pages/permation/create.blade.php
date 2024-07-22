@@ -51,28 +51,28 @@
                                                         <input type="hidden" name="page[]" value="{{$page->page_name}}" >
                                                         <div class="d-flex">
                                                             <div class="form-check me-3 me-lg-5">
-                                                                <input class="form-check-input" type="checkbox" id="all-{{$page->page_name}}" name="permation[]" value="all-{{$page->page_name}}" >
+                                                                <input class="form-check-input checkAll" data-id="{{$page->id}}"  type="checkbox" id="all-{{$page->page_name}}" name="permation[]" value="all-{{$page->page_name}}" >
                                                                 <label class="form-check-label" for="all-{{$page->page_name}}"> All </label>
                                                             </div>
                                                             <div class="form-check me-3 me-lg-5">
-                                                                <input class="form-check-input" type="checkbox" id="read-{{$page->page_name}}" name="permation[]" value="read-{{$page->page_name}}" >
+                                                                <input class="form-check-input perm-{{$page->id}} "  type="checkbox" id="read-{{$page->page_name}}" name="permation[]" value="read-{{$page->page_name}}" >
                                                                 <label class="form-check-label" for="read-{{$page->page_name}}" > Read </label>
                                                             </div>
                                                             <div class="form-check me-3 me-lg-5">
-                                                                <input class="form-check-input" type="checkbox" id="insert-{{$page->page_name}}" name="permation[]" value="insert-{{$page->page_name}}" >
+                                                                <input class="form-check-input perm-{{$page->id}} "  type="checkbox" id="insert-{{$page->page_name}}" name="permation[]" value="insert-{{$page->page_name}}" >
                                                                 <label class="form-check-label" for="insert-{{$page->page_name}}"> Insert </label>
                                                             </div>
                                                             <div class="form-check me-3 me-lg-5">
-                                                                <input class="form-check-input" type="checkbox" id="update-{{$page->page_name}}" name="permation[]" value="update-{{$page->page_name}}" >
+                                                                <input class="form-check-input perm-{{$page->id}} "  type="checkbox" id="update-{{$page->page_name}}" name="permation[]" value="update-{{$page->page_name}}" >
                                                                 <label class="form-check-label" for="update-{{$page->page_name}}"> Update </label>
                                                             </div>
                                                             <div class="form-check me-3 me-lg-5">
-                                                                <input class="form-check-input" type="checkbox" id="custom-{{$page->page_name}}" name="permation[]" value="custom-{{$page->page_name}}" >
+                                                                <input class="form-check-input "  type="checkbox" id="custom-{{$page->page_name}}" name="permation[]" value="custom-{{$page->page_name}}" >
                                                                 <label class="form-check-label" for="custom-{{$page->page_name}}"> Custom Update </label>
 
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" id="delete-{{$page->page_name}}" name="permation[]" value="delete-{{$page->page_name}}" >
+                                                                <input class="form-check-input perm-{{$page->id}} "  type="checkbox" id="delete-{{$page->page_name}}" name="permation[]" value="delete-{{$page->page_name}}" >
                                                                 <label class="form-check-label" for="delete-{{$page->page_name}}"> Delete </label>
                                                             </div>
                                                         </div>
@@ -112,6 +112,18 @@
 @endsection
 @section('script')
 <script>
+     $(document).ready(function(){
+        // Check all inputs with the same ID
+        $('.checkAll').click(function(){
+            var main_id = $(this).attr('data-id');
+            var checkboxes = $('.perm-' + main_id);
+            var allChecked = checkboxes.length === checkboxes.filter(':checked').length;
+
+            // Toggle based on current state
+            checkboxes.prop('checked', !allChecked);
+        });
+
+    });
     // Select All checkbox click
     const selectAll = document.querySelector('#selectAll'),
       checkboxList = document.querySelectorAll('[type="checkbox"]');

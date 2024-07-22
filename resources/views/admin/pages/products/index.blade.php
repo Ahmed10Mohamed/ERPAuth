@@ -34,7 +34,10 @@
                                     <th>#</th>
                                     <th>Product Name</th>
                                     <th>Price</th>
+                                    @if(check_has_permission('update-products') || check_has_permission('delete-products') )
+
                                     <th>Action</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
@@ -43,66 +46,70 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $data->title }}</td>
                                         <td>{{ $data->price }}</td>
+                                        @if(check_has_permission('update-products') || check_has_permission('delete-products') )
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                        data-bs-toggle="dropdown">
+                                                        <i class="ti ti-dots-vertical"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                    @if(check_has_permission('update-products') )
+                                                        <a class="dropdown-item" href="{{ route('Product.edit', $data->id) }}"><i
+                                                                class="ti ti-pencil me-1"></i> Edit</a>
 
-                                        <td>
-                                            <div class="dropdown">
-                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                    data-bs-toggle="dropdown">
-                                                    <i class="ti ti-dots-vertical"></i>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="{{ route('Product.edit', $data->id) }}"><i
-                                                            class="ti ti-pencil me-1"></i> Edit</a>
+                                                    @endif
+                                                    @if(check_has_permission('delete-products') )
 
-
-
-                                                    <a class="dropdown-item" data-bs-toggle="modal"
-                                                        data-bs-target="#basicModal-{{ $data->id }}"><i
-                                                            class="ti ti-trash me-1"></i> Delete</a>
+                                                        <a class="dropdown-item" data-bs-toggle="modal"
+                                                            data-bs-target="#basicModal-{{ $data->id }}"><i
+                                                                class="ti ti-trash me-1"></i> Delete</a>
+                                                   @endif
+                                                            </div>
                                                 </div>
-                                            </div>
 
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="basicModal-{{ $data->id }}" tabindex="-1"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel1">Delete Product
-                                                            </h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="basicModal-{{ $data->id }}" tabindex="-1"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel1">Delete Product
+                                                                </h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                            </div>
+                                                            <form role="form"
+                                                                action="{{ url('Dashboard/Product/' . $data->id) }}" class=""
+                                                                method="POST">
+                                                                <div class="modal-body">
+
+                                                                    <input name="_method" type="hidden" value="DELETE">
+                                                                    {{ csrf_field() }}
+                                                                    <p>Are You Sure?</p>
+
+
+
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-label-secondary"
+                                                                        data-bs-dismiss="modal">
+                                                                        Close
+                                                                    </button>
+                                                                    <button type="submit" class="btn btn-danger"
+                                                                        name='delete_modal'><i class="fa fa-trash"
+                                                                            aria-hidden="true"></i> Delete</button>
+                                                                    </a>
+                                                                </div>
+                                                            </form>
                                                         </div>
-                                                        <form role="form"
-                                                            action="{{ url('Dashboard/Product/' . $data->id) }}" class=""
-                                                            method="POST">
-                                                            <div class="modal-body">
-
-                                                                <input name="_method" type="hidden" value="DELETE">
-                                                                {{ csrf_field() }}
-                                                                <p>Are You Sure?</p>
-
-
-
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-label-secondary"
-                                                                    data-bs-dismiss="modal">
-                                                                    Close
-                                                                </button>
-                                                                <button type="submit" class="btn btn-danger"
-                                                                    name='delete_modal'><i class="fa fa-trash"
-                                                                        aria-hidden="true"></i> Delete</button>
-                                                                </a>
-                                                            </div>
-                                                        </form>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            {{-- end --}}
+                                                {{-- end --}}
 
-                                        </td>
+                                            </td>
+                                        @endif
 
 
 

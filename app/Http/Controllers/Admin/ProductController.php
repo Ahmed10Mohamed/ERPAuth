@@ -13,10 +13,14 @@ class ProductController extends Controller
     public function __construct(ProductRepository $productRepository){
         $this->productRepository = $productRepository;
     }
-   
+
 
     public function index()
     {
+        if ($redirect = redirect_if_no_permission('read-products')) {
+            return $redirect;
+        }
+
         $class = 'product';
         $all_data = $this->productRepository->index();
         return view('admin.pages.products.index',compact('all_data','class'));
@@ -30,6 +34,9 @@ class ProductController extends Controller
 
     public function create()
     {
+        if ($redirect = redirect_if_no_permission('insert-products')) {
+            return $redirect;
+        }
 
         $class = 'product';
 
@@ -44,7 +51,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-      
+
         $data = $this->productRepository->store($request);
         if($data === 'error'){
             return redirect()->back()->with('fail','Opps! Try Again Later');
@@ -57,6 +64,10 @@ class ProductController extends Controller
 
     public function edit($id)
     {
+        if ($redirect = redirect_if_no_permission('update-products')) {
+            return $redirect;
+        }
+
         $class = 'product';
        $data = $this->productRepository->show($id);
         return view('admin.pages.products.edit')->with(['data'=>$data,'class'=>$class]);
@@ -72,7 +83,7 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, $id)
     {
-        
+
         $data = $this->productRepository->update($request,$id);
         if($data === 'error'){
             return redirect()->back()->with('fail','Opps! Try Again Later');
@@ -93,6 +104,10 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
+        if ($redirect = redirect_if_no_permission('delete-products')) {
+            return $redirect;
+        }
+
         $data = $this->productRepository->destroy($id);
         if($data === 'error'){
             return redirect()->back()->with('fail','Opps! Try Again Later');
@@ -100,5 +115,5 @@ class ProductController extends Controller
             return redirect()->route('Product.index')->with('success','Deleted Success');
         }
     }
-    
+
 }

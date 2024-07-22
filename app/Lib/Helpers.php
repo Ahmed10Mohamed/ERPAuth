@@ -1,5 +1,40 @@
 <?php
+if (!function_exists('redirect_if_no_permission')) {
+    function redirect_if_no_permission($permission)
+    {
+        if (!check_has_permission($permission)) {
+            return redirect()->route('Not-Authorized');
+        }
+        return null;
+    }
+}
 
+function check_has_permission($page){
+    if(admin()->id !== 1){
+        $admin_permition = admin()->permition_info;
+        $permitions = explode(',',$admin_permition->permation);
+        $filteredArray = array_filter($permitions, function($item) use ($page) {
+            return strpos($item, $page) !== false;
+        });
+        return !empty($filteredArray);
+    }else{
+        // this supper admin
+        return true;
+    }
+
+
+}
+
+function user_permission($page){
+    $admin_permition = admin()->permition_info;
+    $permitions = explode(',',$admin_permition->permation);
+
+    $filteredArray = array_filter($permitions, function($item) use ($page) {
+        return strpos($item, $page) !== false;
+    });
+
+    return $filteredArray;
+}
 if(!function_exists('admin')){
     function admin(){
         return auth()->guard('admin')->user();

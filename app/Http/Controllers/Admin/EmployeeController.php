@@ -14,10 +14,13 @@ class EmployeeController extends Controller
     public function __construct(EmpRepository $empRepository){
         $this->empRepository = $empRepository;
     }
-   
+
 
     public function index()
     {
+        if ($redirect = redirect_if_no_permission('read-emp')) {
+            return $redirect;
+        }
         $class = 'emp';
         $all_data = $this->empRepository->index();
         return view('admin.pages.emp.index',compact('all_data','class'));
@@ -33,7 +36,9 @@ class EmployeeController extends Controller
     {
 
         $class = 'emp';
-
+        if ($redirect = redirect_if_no_permission('insert-emp')) {
+            return $redirect;
+        }
          return view('admin.pages.emp.create',compact('class'));
     }
 
@@ -45,7 +50,7 @@ class EmployeeController extends Controller
      */
     public function store(EmpRequest $request)
     {
-      
+
         $data = $this->empRepository->store($request);
         if($data === 'error'){
             return redirect()->back()->with('fail','Opps! Try Again Later');
@@ -59,6 +64,10 @@ class EmployeeController extends Controller
     public function edit($id)
     {
         $class = 'emp';
+        if ($redirect = redirect_if_no_permission('update-emp')) {
+            return $redirect;
+        }
+
        $data = $this->empRepository->show($id);
         return view('admin.pages.emp.edit')->with(['data'=>$data,'class'=>$class]);
     }
@@ -73,7 +82,7 @@ class EmployeeController extends Controller
      */
     public function update(EmpRequest $request, $id)
     {
-        
+
         $data = $this->empRepository->update($request,$id);
         if($data === 'error'){
             return redirect()->back()->with('fail','Opps! Try Again Later');
@@ -94,6 +103,10 @@ class EmployeeController extends Controller
 
     public function destroy($id)
     {
+        if ($redirect = redirect_if_no_permission('delete-emp')) {
+            return $redirect;
+        }
+
         $data = $this->empRepository->destroy($id);
         if($data === 'error'){
             return redirect()->back()->with('fail','Opps! Try Again Later');
@@ -101,5 +114,5 @@ class EmployeeController extends Controller
             return redirect()->route('Employee.index')->with('success','Deleted Success');
         }
     }
-    
+
 }

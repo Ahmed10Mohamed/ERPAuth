@@ -41,8 +41,6 @@ class Admin extends Authenticatable
      * @return void
      */
 
-    public function permissions()
-    {
-        return $this->belongsToMany('App\Permission');
-    }
+
 }
+
