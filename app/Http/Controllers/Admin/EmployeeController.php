@@ -64,7 +64,7 @@ class EmployeeController extends Controller
     public function edit($id)
     {
         $class = 'emp';
-        if ($redirect = redirect_if_no_permission('update-emp')) {
+        if ($redirect = redirect_if_no_permission('update-emp','customUpdate-emp','emp',$id)) {
             return $redirect;
         }
 

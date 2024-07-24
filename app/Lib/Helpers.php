@@ -1,30 +1,74 @@
 <?php
+
+use App\Models\CustomUpdate;
+use App\Models\Employee;
+use App\Models\Product;
+use App\Models\User;
+
 if (!function_exists('redirect_if_no_permission')) {
-    function redirect_if_no_permission($permission)
+    function redirect_if_no_permission($permission,$custom_page=null,$page_name=null,$item_id=null)
     {
-        if (!check_has_permission($permission)) {
+        if (!check_has_permission($permission,$custom_page,$page_name,$item_id)) {
             return redirect()->route('Not-Authorized');
         }
         return null;
     }
 }
 
-function check_has_permission($page){
+function check_has_permission($page,$custom_page=null,$page_name=null,$item_id=null){
+
+
     if(admin()->id !== 1){
         $admin_permition = admin()->permition_info;
+        $id = $admin_permition->id;
         $permitions = explode(',',$admin_permition->permation);
-        $filteredArray = array_filter($permitions, function($item) use ($page) {
-            return strpos($item, $page) !== false;
-        });
-        return !empty($filteredArray);
+
+        if (in_array($custom_page, $permitions)){
+
+            return check_custom_update($page_name,$id,$item_id);
+        }else{
+
+            $filteredArray = array_filter($permitions, function($item) use ($page,$custom_page,$page_name,$id,$item_id) {
+
+                return strpos($item, $page) !== false;
+
+            });
+            return !empty($filteredArray);
+        }
+
+
     }else{
         // this supper admin
         return true;
     }
-
-
 }
 
+
+function check_custom_update($page,$id,$item_id){
+
+
+    $per_emp = CustomUpdate::where(['permition_id'=>$id,'page_custom'=>$page])->first();
+
+    if($page == 'emp'){
+        $permition = Employee::query();
+    }elseif($page == 'users'){
+        $permition = User::query();
+    }else{
+        $permition = Product::query();
+    }
+
+    if($per_emp->db_type == 'string'){
+        $permition = $permition->where($per_emp->col,'like','%'.$per_emp->value.'%');
+    }elseif($per_emp->db_type == 'number'){
+        $permition = $permition->where($per_emp->col,$per_emp->exp,$per_emp->value);
+    }elseif($per_emp->db_type == 'date'){
+        $permition = $permition->whereDate($per_emp->col,$per_emp->exp,$per_emp->value);
+
+    }
+    $permition = $permition->where('id',$item_id)->exists();
+    return $permition;
+
+}
 function user_permission($page){
     $admin_permition = admin()->permition_info;
     $permitions = explode(',',$admin_permition->permation);

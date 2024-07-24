@@ -46,7 +46,8 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $data->title }}</td>
                                         <td>{{ $data->price }}</td>
-                                        @if(check_has_permission('update-products') || check_has_permission('delete-products') )
+
+                                        @if(check_has_permission('update-products','customUpdate-products','products',$data->id) || check_has_permission('delete-products') )
                                             <td>
                                                 <div class="dropdown">
                                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -54,7 +55,7 @@
                                                         <i class="ti ti-dots-vertical"></i>
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                    @if(check_has_permission('update-products') )
+                                                    @if(check_has_permission('update-products','customUpdate-products','products',$data->id) )
                                                         <a class="dropdown-item" href="{{ route('Product.edit', $data->id) }}"><i
                                                                 class="ti ti-pencil me-1"></i> Edit</a>
 

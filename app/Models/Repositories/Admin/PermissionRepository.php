@@ -5,6 +5,7 @@ namespace App\Models\Repositories\Admin;
 use App\Models\Admin;
 use App\Models\Category;
 use App\Models\CategoryRequest;
+use App\Models\CustomUpdate;
 use App\Models\Page;
 use App\Models\Permission;
 use App\Models\Role;
@@ -40,7 +41,21 @@ class PermissionRepository
        try {
             $data['permation'] = implode(',',$request->permation);
             $data['page'] = implode(',',$request->page);
-            Permission::create($data);
+            $per =Permission::create($data);
+            if(isset($request->col)){
+
+                foreach ($request->col as $key => $col) {
+
+                  CustomUpdate::create([
+                        'permition_id'=>$per->id,
+                        'col' =>$col,
+                        'exp'=>$request->exp[$key],
+                        'page_custom'=>$request->page_custom[$key],
+                        'db_type'=>$request->db_type[$key],
+                        'value'=>$request->value[$key],
+                    ]);
+                }
+            }
             DB::commit();
         } catch (\Exception $e) {
              dd($e);

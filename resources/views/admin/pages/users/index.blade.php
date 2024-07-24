@@ -10,7 +10,7 @@
             <div class="container-xxl flex-grow-1 container-p-y">
                 <div class="row me-2">
                     <div class="col-md-4">
-                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Employees</h4>
+                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Users</h4>
                     </div>
 
                      @if(check_has_permission('insert-user'))
@@ -18,7 +18,7 @@
                         <div
                             class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0">
 
-                            <a href="{{ route('Employee.create') }}" class="dt-button add-new btn btn-primary"><span><i
+                            <a href="{{ route('User.create') }}" class="dt-button add-new btn btn-primary"><span><i
                                         class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span
                                         class="d-none d-sm-inline-block">create</span></span></a>
                         </div>
@@ -35,7 +35,7 @@
                             <thead class="table-dark">
                                 <tr>
                                     <th>#</th>
-                                    <th>Employee Name</th>
+                                    <th>User Name</th>
                                     <th>E-Mail</th>
                                     <th>Phone</th>
                                     @if(check_has_permission('update-user') || check_has_permission('delete-user') )
@@ -51,7 +51,8 @@
                                         <td>{{ $data->name }}</td>
                                         <td>{{ $data->email }}</td>
                                         <td>{{ $data->phone }}</td>
-                                        @if(check_has_permission('update-user') || check_has_permission('delete-user') )
+
+                                        @if(check_has_permission('update-user','customUpdate-users','users',$data->id) || check_has_permission('delete-user') )
                                             <td>
                                                 <div class="dropdown">
                                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -59,8 +60,8 @@
                                                         <i class="ti ti-dots-vertical"></i>
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                    @if(check_has_permission('update-user'))
-                                                        <a class="dropdown-item" href="{{ route('Employee.edit', $data->id) }}"><i
+                                                    @if(check_has_permission('update-user','customUpdate-users','users',$data->id))
+                                                        <a class="dropdown-item" href="{{ route('User.edit', $data->id) }}"><i
                                                                 class="ti ti-pencil me-1"></i> Edit</a>
                                                         @endif
 
@@ -78,13 +79,13 @@
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel1">Delete Employee
+                                                                <h5 class="modal-title" id="exampleModalLabel1">Delete User
                                                                 </h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                     aria-label="Close"></button>
                                                             </div>
                                                             <form role="form"
-                                                                action="{{ url('Dashboard/Employee/' . $data->id) }}" class=""
+                                                                action="{{ url('Dashboard/User/' . $data->id) }}" class=""
                                                                 method="POST">
                                                                 <div class="modal-body">
 

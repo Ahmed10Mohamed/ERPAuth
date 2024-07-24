@@ -63,11 +63,11 @@
                                                                 <label class="form-check-label" for="insert-{{$page->page_name}}"> Insert </label>
                                                             </div>
                                                             <div class="form-check me-3 me-lg-5">
-                                                                <input class="form-check-input update_col perm-{{$page->id}} " data-id="{{$page->id}}"  type="checkbox" id="update-{{$page->page_name}}" name="permation[]" value="update-{{$page->page_name}}"  >
+                                                                <input class="form-check-input update_col perm-{{$page->id}} " data-id="{{$page->id}}"  type="checkbox" id="update-{{$page->page_name}}" name="permation[]" value="update-{{$page->page_name}}" disabled >
                                                                 <label class="form-check-label" for="update-{{$page->page_name}}"> Update </label>
                                                             </div>
                                                             <div class="form-check me-3 me-lg-5">
-                                                                <input class="form-check-input check_custom_update_page" type="checkbox" data-id="{{$page->id}}" id="custom_update-{{$page->id}}" data-url="{{url('Dashboard/select-custom-update')}}" name="permation[]"  data-page="{{$page->page_name}}" value="customUpdate-{{$page->page_name}}" disabled >
+                                                                <input class="form-check-input check_custom_update_page" type="checkbox" data-id="{{$page->id}}" id="custom_update-{{$page->id}}" data-url="{{url('Dashboard/select-custom-update')}}" data-page="{{$page->page_name}}" value="custom-{{$page->page_name}}" disabled >
                                                                 <label class="form-check-label" for="custom-{{$page->page_name}}"> Custom Update </label>
 
                                                             </div>
@@ -156,7 +156,24 @@
 
         });
     });
+    $(document).ready(function(){
 
+
+        $('.read_col').change(function() {
+            var id = $(this).attr('data-id');
+
+            if ($(this).is(':checked')) {
+                 $('.perm-'+id).prop('disabled',false);
+            }else{
+                $('.perm-'+id).prop('disabled',true);
+                $('#custom_update-'+id).prop('disabled',true);
+                $('#custom_update-'+id).prop('checked',false);
+                $('#customPage-' + id).hide();
+
+            }
+
+        });
+        });
 
 
     $(document).ready(function() {

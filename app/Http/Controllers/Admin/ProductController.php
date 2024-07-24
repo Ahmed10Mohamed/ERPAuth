@@ -64,7 +64,8 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        if ($redirect = redirect_if_no_permission('update-products')) {
+        if ($redirect = redirect_if_no_permission('update-products','customUpdate-products','products',$id)) {
+
             return $redirect;
         }
 

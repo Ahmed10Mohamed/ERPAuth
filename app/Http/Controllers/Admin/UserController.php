@@ -63,7 +63,8 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        if ($redirect = redirect_if_no_permission('update-user')) {
+        if ($redirect = redirect_if_no_permission('update-user','customUpdate-users','users',$id)) {
+
             return $redirect;
         }
         $class = 'users';

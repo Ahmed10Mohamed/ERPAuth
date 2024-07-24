@@ -51,7 +51,7 @@
                                         <td>{{ $data->name }}</td>
                                         <td>{{ $data->email }}</td>
                                         <td>{{ $data->phone }}</td>
-                                        @if(check_has_permission('update-emp') || check_has_permission('delete-emp') )
+                                        @if(check_has_permission('update-emp','customUpdate-emp','emp',$data->id) || check_has_permission('delete-emp') )
                                             <td>
                                                 <div class="dropdown">
                                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -59,8 +59,9 @@
                                                         <i class="ti ti-dots-vertical"></i>
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                    @if(check_has_permission('update-emp'))
-                                                        <a class="dropdown-item" href="{{ route('Employee.edit', $data->id) }}"><i
+                                                    @if(check_has_permission('update-emp','customUpdate-emp','emp',$data->id))
+
+                                                            <a class="dropdown-item" href="{{ route('Employee.edit', $data->id) }}"><i
                                                                 class="ti ti-pencil me-1"></i> Edit</a>
                                                         @endif
 

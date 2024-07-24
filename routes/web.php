@@ -60,7 +60,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => 'admi
      Route::resource('Role',RoleController::class)->except(['create','edit','show']);
           /***** Permation *****/
     Route::resource('Permation',PermissionController::class)->except(['show'])->middleware('admin_page');
-          /***** Product *****/
+    Route::get('select-custom-update',[PermissionController::class,'select_custom_update']);
+    /***** Product *****/
     Route::resource('Product',ProductController::class)->except(['show']);
 
 
