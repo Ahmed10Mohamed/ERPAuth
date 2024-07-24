@@ -77,19 +77,16 @@
                                                     <label class="form-check-label" for="delete-{{$page->page_name}}"> Delete </label>
                                                 </div>
                                             </div>
-                                            <div class="row custom_page" id="customPage-{{$page->id}}">
-                                            <hr>
-                                                    @foreach ($data->customs_updats_info as $custom_update )
-
-                                                            <h4 class="text-nowrap fw-semibold"><span>custom Update Of Page:-</span>{{$custom_update->page_custom}}</h4>
-                                                                <input type="hidden" name="page_custom[]" value="{{$custom_update->page_custom}}" >
-                                                                @if($custom_update->page_custom == 'products')
-                                                                    @include('admin.pages.permation.tables.edit_products',['custom_update'=>$custom_update])
-                                                                @else
-                                                                    @include('admin.pages.permation.tables.edit_users_emp',['custom_update'=>$custom_update])
-                                                                @endif
-
-                                                            <div class="col-4">
+                                                <div class="row custom_page" id="customPage-{{$page->id}}">
+                                                @foreach (customs_updats_page_permation($page->page_name,$data->id) as $custom_update )
+                                                        <h4 class="text-nowrap fw-semibold"><span>custom Update Of Page:-</span>{{$custom_update->page_custom}}</h4>
+                                                        <input type="hidden" name="page_custom[]" value="{{$custom_update->page_custom}}" >
+                                                        @if($custom_update->page_custom == 'products')
+                                                            @include('admin.pages.permation.tables.edit_products',['custom_update'=>$custom_update])
+                                                        @else
+                                                            @include('admin.pages.permation.tables.edit_users_emp',['custom_update'=>$custom_update])
+                                                        @endif
+                                                        <div class="col-4">
                                                             <div class="mb-3">
                                                                 <label class="form-label" for="Roles">Select exp <span style="color:#f00">*</span></label>
                                                                 <select name="exp[]" class=" form-select">
@@ -112,11 +109,14 @@
                                                                 </div>
                                                             </div>
 
-                                                        </div>
-                                                        <hr>
                                                     @endforeach
 
+
+                                                </div>
+                                            <hr>
+
                                         @endforeach
+
 
 
 
@@ -185,10 +185,13 @@
             if ($(this).is(':checked')) {
 
                 $('#custom_update-'+id).prop('disabled',false);
+                $('.custom_page').prop('disabled',false);
             }else{
                 $('#custom_update-'+id).prop('disabled',true);
                 $('#custom_update-'+id).prop('checked',false);
                 $('#customPage-' + id).hide();
+                $('.custom_page').prop('disabled',true);
+
 
             }
 

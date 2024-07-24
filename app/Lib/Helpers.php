@@ -5,6 +5,10 @@ use App\Models\Employee;
 use App\Models\Product;
 use App\Models\User;
 
+function customs_updats_page_permation($page,$permission_id){
+    $permissions = CustomUpdate::where(['page_custom'=>$page,'permition_id'=>$permission_id])->get();
+    return $permissions;
+}
 if (!function_exists('redirect_if_no_permission')) {
     function redirect_if_no_permission($permission,$custom_page=null,$page_name=null,$item_id=null)
     {

@@ -17,5 +17,8 @@ class Permission extends Model
     {
         return $this->belongsTo(Role::class,'role_id');
     }
-
+    public function customs_updats_info()
+    {
+        return $this->hasMany(CustomUpdate::class,'permition_id');
+    }
 }

@@ -69,15 +69,27 @@ class PermissionController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = $this->permissionRepository->show($id);
+        $permations = explode(',',$data->permation);
+        $class = 'permation';
+        $roles = $this->permissionRepository->roles();
+        $pages = $this->permissionRepository->pages();
+        return view('admin.pages.permation.edit',compact('permations','data','roles','class','pages'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PermationRequest $request, string $id)
     {
-        //
+        $data = $this->permissionRepository->update($request,$id);
+        if($data === 'error'){
+            return redirect()->back()->with('fail','Opps! Try Again Later');
+        }else{
+            return redirect()->route('Permation.index')->with('success','updated Success');
+
+        }
     }
 
     /**

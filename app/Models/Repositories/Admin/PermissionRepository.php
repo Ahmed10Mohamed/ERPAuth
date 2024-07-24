@@ -74,12 +74,34 @@ class PermissionRepository
        DB::beginTransaction();
        try {
 
+            $data['permation'] = implode(',',$request->permation);
+            $data['page'] = implode(',',$request->page);
             $permission->update($data);
+            if(isset($request->col)){
+                if (isset($permission->customs_updats_info)) {
+                    $permission->customs_updats_info()->delete();
+                }
+                if (isset($permission->customs_updats_info)) {
+                    $permission->customs_updats_info()->delete();
+                }
+                foreach ($request->col as $key => $col) {
+
+                CustomUpdate::create([
+                        'permition_id'=>$permission->id,
+                        'col' =>$col,
+                        'exp'=>$request->exp[$key],
+                        'page_custom'=>$request->page_custom[$key],
+                        'db_type'=>$request->db_type[$key],
+                        'value'=>$request->value[$key],
+                    ]);
+                }
+            }
+
 
             DB::commit();
 
         } catch (\Exception $e) {
-            //  dd($e);
+              dd($e);
             DB::rollback();
            return 'error';
         }
