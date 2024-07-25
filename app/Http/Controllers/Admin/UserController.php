@@ -17,7 +17,7 @@ class UserController extends Controller
 
     public function index()
     {
-        if ($redirect = redirect_if_no_permission('read-user')) {
+        if ($redirect = redirect_if_no_permission('read-users')) {
             return $redirect;
         }
         $class = 'users';
@@ -33,7 +33,7 @@ class UserController extends Controller
 
     public function create()
     {
-        if ($redirect = redirect_if_no_permission('insert-user')) {
+        if ($redirect = redirect_if_no_permission('insert-users')) {
             return $redirect;
         }
 
@@ -63,7 +63,7 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        if ($redirect = redirect_if_no_permission('update-user','customUpdate-users','users',$id)) {
+        if ($redirect = redirect_if_no_permission('update-users','customUpdate-users','users',$id)) {
 
             return $redirect;
         }
@@ -103,7 +103,8 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        if ($redirect = redirect_if_no_permission('delete-user')) {
+
+        if ($redirect = redirect_if_no_permission('delete-users','customDelete-users','users',$id)) {
             return $redirect;
         }
         $data = $this->userRepository->destroy($id);

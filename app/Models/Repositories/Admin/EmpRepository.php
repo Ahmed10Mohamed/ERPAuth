@@ -14,7 +14,7 @@ class EmpRepository
 
     public function index()
     {
-        $emps = Employee::orderBy('id', 'DESC')->get();
+        $emps = Employee::orderBy('id', 'DESC')->paginate(50);
         return $emps;
     }
     public function show($id){
@@ -30,7 +30,7 @@ class EmpRepository
 
             $data['password']=bcrypt($request->password);
              Employee::create($data);
-           
+
             DB::commit();
 
         } catch (\Exception $e) {
@@ -71,7 +71,7 @@ class EmpRepository
         DB::beginTransaction();
         try {
             $emp->delete();
-        
+
              DB::commit();
 
          } catch (\Exception $e) {

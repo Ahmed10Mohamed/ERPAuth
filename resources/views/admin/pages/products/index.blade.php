@@ -12,6 +12,8 @@
                     <div class="col-md-4">
                         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Products</h4>
                     </div>
+                    @if(check_has_permission('insert-products'))
+
                     <div class="col-md-8">
                         <div
                             class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0">
@@ -21,6 +23,7 @@
                                         class="d-none d-sm-inline-block">create</span></span></a>
                         </div>
                     </div>
+                    @endif
                 </div>
 
 
@@ -34,10 +37,8 @@
                                     <th>#</th>
                                     <th>Product Name</th>
                                     <th>Price</th>
-                                    @if(check_has_permission('update-products') || check_has_permission('delete-products') )
 
                                     <th>Action</th>
-                                    @endif
                                 </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
@@ -47,8 +48,8 @@
                                         <td>{{ $data->title }}</td>
                                         <td>{{ $data->price }}</td>
 
-                                        @if(check_has_permission('update-products','customUpdate-products','products',$data->id) || check_has_permission('delete-products','customDelete-products','products',$data->id) )
-                                            <td>
+                                        <td>
+                                                @if(check_has_permission('update-products','customUpdate-products','products',$data->id) || check_has_permission('delete-products','customDelete-products','products',$data->id) )
                                                 <div class="dropdown">
                                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                                         data-bs-toggle="dropdown">
@@ -108,9 +109,12 @@
                                                 </div>
 
                                                 {{-- end --}}
+                                                @else
+                                                <span style="color:#f00"> do not have permission </span>
 
+
+                                                @endif
                                             </td>
-                                        @endif
 
 
 
@@ -122,6 +126,7 @@
                     </div>
                 </div>
                 <!--/ Bootstrap Table with Header Dark -->
+                {{ $all_data->appends(request()->query())->links() }}
 
                 {{-- end --}}
 

@@ -14,7 +14,7 @@ class UserRepository
 
     public function index()
     {
-        $users = User::orderBy('id', 'DESC')->get();
+        $users = User::orderBy('id', 'DESC')->paginate(50);
         return $users;
     }
     public function show($id){
@@ -30,7 +30,7 @@ class UserRepository
 
             $data['password']=bcrypt($request->password);
              User::create($data);
-           
+
             DB::commit();
 
         } catch (\Exception $e) {
@@ -71,7 +71,7 @@ class UserRepository
         DB::beginTransaction();
         try {
             $user->delete();
-        
+
              DB::commit();
 
          } catch (\Exception $e) {

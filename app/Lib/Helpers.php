@@ -26,8 +26,8 @@ function check_has_permission($page,$custom_page=null,$page_name=null,$item_id=n
         $admin_permition = admin()->permition_info;
         $id = $admin_permition->id;
         $permitions = explode(',',$admin_permition->permation);
-
         if (in_array($custom_page, $permitions)){
+
           $page_type = explode('-', $page);
             $page_type = $page_type[0];
 
@@ -55,7 +55,6 @@ function check_custom_update_delete($page,$id,$item_id,$page_type){
 
 
     $per_emp = CustomUpdate::where(['permition_id'=>$id,'page_custom'=>$page,'page_type'=>$page_type])->first();
-
     if($page == 'emp'){
         $permition = Employee::query();
     }elseif($page == 'users'){

@@ -17,7 +17,7 @@ class ProductRepository
     }
     public function index()
     {
-        $products = Product::orderBy('id', 'DESC')->get();
+        $products = Product::orderBy('id', 'DESC')->paginate(50);
         return $products;
     }
     public function show($id){
@@ -35,7 +35,7 @@ class ProductRepository
             }
 
              Product::create($data);
-           
+
             DB::commit();
 
         } catch (\Exception $e) {
@@ -80,7 +80,7 @@ class ProductRepository
         DB::beginTransaction();
         try {
             $product->delete();
-        
+
              DB::commit();
 
          } catch (\Exception $e) {

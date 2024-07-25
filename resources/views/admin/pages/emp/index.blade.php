@@ -38,10 +38,8 @@
                                     <th>Employee Name</th>
                                     <th>E-Mail</th>
                                     <th>Phone</th>
-                                    @if(check_has_permission('update-emp') || check_has_permission('delete-emp') )
 
                                     <th>Action</th>
-                                    @endif
                                 </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
@@ -51,8 +49,8 @@
                                         <td>{{ $data->name }}</td>
                                         <td>{{ $data->email }}</td>
                                         <td>{{ $data->phone }}</td>
-                                        @if(check_has_permission('update-emp','customUpdate-emp','emp',$data->id) || check_has_permission('delete-emp','customDelete-emp','emp',$data->id) )
-                                            <td>
+                                        <td>
+                                                @if(check_has_permission('update-emp','customUpdate-emp','emp',$data->id) || check_has_permission('delete-emp','customDelete-emp','emp',$data->id) )
                                                 <div class="dropdown">
                                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                                         data-bs-toggle="dropdown">
@@ -112,9 +110,12 @@
                                                 </div>
 
                                                 {{-- end --}}
+                                                @else
+                                                <span style="color:#f00"> do not have permission </span>
 
+
+                                                @endif
                                             </td>
-                                        @endif
 
 
                                     </tr>
@@ -125,6 +126,8 @@
                     </div>
                 </div>
                 <!--/ Bootstrap Table with Header Dark -->
+                {{ $all_data->appends(request()->query())->links() }}
+
 
                 {{-- end --}}
 
