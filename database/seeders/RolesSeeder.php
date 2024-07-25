@@ -20,11 +20,7 @@ class RolesSeeder extends Seeder
                 'name' => 'SupperAdmin',
                 'created_at'=>now(),
                 'updated_at'=>now(),
-
             ]
-
-
-
 
             ]);
     }

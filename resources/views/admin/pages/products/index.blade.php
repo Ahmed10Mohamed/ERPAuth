@@ -47,7 +47,7 @@
                                         <td>{{ $data->title }}</td>
                                         <td>{{ $data->price }}</td>
 
-                                        @if(check_has_permission('update-products','customUpdate-products','products',$data->id) || check_has_permission('delete-products') )
+                                        @if(check_has_permission('update-products','customUpdate-products','products',$data->id) || check_has_permission('delete-products','customDelete-products','products',$data->id) )
                                             <td>
                                                 <div class="dropdown">
                                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -60,7 +60,7 @@
                                                                 class="ti ti-pencil me-1"></i> Edit</a>
 
                                                     @endif
-                                                    @if(check_has_permission('delete-products') )
+                                                    @if(check_has_permission('delete-products','customDelete-products','products',$data->id) )
 
                                                         <a class="dropdown-item" data-bs-toggle="modal"
                                                             data-bs-target="#basicModal-{{ $data->id }}"><i

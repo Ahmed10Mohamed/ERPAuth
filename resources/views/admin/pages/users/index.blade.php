@@ -52,7 +52,7 @@
                                         <td>{{ $data->email }}</td>
                                         <td>{{ $data->phone }}</td>
 
-                                        @if(check_has_permission('update-user','customUpdate-users','users',$data->id) || check_has_permission('delete-user') )
+                                        @if(check_has_permission('update-user','customUpdate-users','users',$data->id) || check_has_permission('delete-user','customDelete-user','user',$data->id) )
                                             <td>
                                                 <div class="dropdown">
                                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -65,7 +65,7 @@
                                                                 class="ti ti-pencil me-1"></i> Edit</a>
                                                         @endif
 
-                                                        @if(check_has_permission('delete-user'))
+                                                        @if(check_has_permission('delete-user','customDelete-user','user',$data->id))
                                                         <a class="dropdown-item" data-bs-toggle="modal"
                                                             data-bs-target="#basicModal-{{ $data->id }}"><i
                                                                 class="ti ti-trash me-1"></i> Delete</a>

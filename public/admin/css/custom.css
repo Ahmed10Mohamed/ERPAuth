@@ -90,3 +90,8 @@
 .progress_bar .percent {
     position: relative;
 }
+.custom_page{
+    padding: 10px;
+    margin-top: 20px !important;
+}
+

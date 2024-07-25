@@ -28,8 +28,11 @@ function check_has_permission($page,$custom_page=null,$page_name=null,$item_id=n
         $permitions = explode(',',$admin_permition->permation);
 
         if (in_array($custom_page, $permitions)){
+          $page_type = explode('-', $page);
+            $page_type = $page_type[0];
 
-            return check_custom_update($page_name,$id,$item_id);
+            return check_custom_update_delete($page_name,$id,$item_id,$page_type);
+
         }else{
 
             $filteredArray = array_filter($permitions, function($item) use ($page,$custom_page,$page_name,$id,$item_id) {
@@ -48,10 +51,10 @@ function check_has_permission($page,$custom_page=null,$page_name=null,$item_id=n
 }
 
 
-function check_custom_update($page,$id,$item_id){
+function check_custom_update_delete($page,$id,$item_id,$page_type){
 
 
-    $per_emp = CustomUpdate::where(['permition_id'=>$id,'page_custom'=>$page])->first();
+    $per_emp = CustomUpdate::where(['permition_id'=>$id,'page_custom'=>$page,'page_type'=>$page_type])->first();
 
     if($page == 'emp'){
         $permition = Employee::query();

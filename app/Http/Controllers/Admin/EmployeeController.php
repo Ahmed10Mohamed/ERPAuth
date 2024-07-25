@@ -103,7 +103,8 @@ class EmployeeController extends Controller
 
     public function destroy($id)
     {
-        if ($redirect = redirect_if_no_permission('delete-emp')) {
+        if ($redirect = redirect_if_no_permission('delete-emp','customDelete-emp','emp',$id)) {
+
             return $redirect;
         }
 

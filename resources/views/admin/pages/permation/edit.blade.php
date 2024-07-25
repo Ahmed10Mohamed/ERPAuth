@@ -46,10 +46,17 @@
                                     <hr>
                                        {{-- permission --}}
                                        <div class="row">
-                                       <div class="col-12">
+                                       <div class="col-12 ">
                                         <h5>Role Permissions</h5>
                                         <!-- Permission table -->
                                         @foreach ($pages as $page)
+                                            @php
+                                                $custom_update = customs_updats_delete_page_permation($page->page_name,$data->id,'update');
+
+                                                $custom_delete = customs_updats_delete_page_permation($page->page_name,$data->id,'delete');
+
+                                            @endphp
+
                                             <h4 class="text-nowrap fw-semibold"><span>Page Name:-</span>{{$page->page_name}}</h4>
                                             <input type="hidden" name="page[]" value="{{$page->page_name}}">
                                                 <div class="d-flex">
@@ -100,22 +107,15 @@
                                                         data-url="{{url('Dashboard/select-custom-update')}}"
                                                         name="permation[]"
                                                         data-page="{{$page->page_name}}"
-                                                        value="customUDelete-{{$page->page_name}}"
-                                                        {{ in_array("customUDelete-{$page->page_name}", $permations) ? 'checked' : '' }}
+                                                        value="customDelete-{{$page->page_name}}"
+                                                        {{ in_array("customDelete-{$page->page_name}", $permations) ? 'checked' : '' }}
                                                         {{ !in_array("delete-{$page->page_name}", $permations) ? 'disabled' : '' }}>
 
                                                         <label class="form-check-label" for="custom-{{$page->page_name}}"> Custom Delete </label>
 
                                                     </div>
                                                 </div>
-
-                                                    @php
-                                                        $custom_update = customs_updats_delete_page_permation($page->page_name,$data->id,'update');
-
-                                                        $custom_delete = customs_updats_delete_page_permation($page->page_name,$data->id,'delete');
-
-                                                    @endphp
-                                                    @if($custom_update)
+                                                @if($custom_update)
                                                      @include('admin.pages.permation.custom_update_edit',['custom_update'=>$custom_update,'page'=>$page])
                                                      @else
                                                      <div class="row custom_page" id="customPage-{{$page->page_name}}"></div>
@@ -126,12 +126,6 @@
                                                      <div class="row custom_page" id="customPageDelete-{{$page->page_name}}"></div>
 
                                                      @endif
-
-
-
-
-
-
                                             <hr>
 
                                         @endforeach
@@ -141,9 +135,8 @@
 
                                         </div>
                                        </div>
-
-
                                        <!-- end permission -->
+
 
                         <br>
 

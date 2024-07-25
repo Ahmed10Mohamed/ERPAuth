@@ -77,7 +77,7 @@
                                                                 <label class="form-check-label" for="delete-{{$page->page_name}}"> Delete </label>
                                                             </div>
                                                             <div class="form-check ">
-                                                                <input class="form-check-input check_custom_update_page" type="checkbox" data-page_id="{{$page->page_name}}" data-id="{{$page->id}}"  id="custom_delete-{{$page->id}}" data-type="delete" data-url="{{url('Dashboard/select-custom-update')}}" name="permation[]"  data-page="{{$page->page_name}}" value="customUDelete-{{$page->page_name}}" disabled >
+                                                                <input class="form-check-input check_custom_update_page" type="checkbox" data-page_id="{{$page->page_name}}" data-id="{{$page->id}}"  id="custom_delete-{{$page->id}}" data-type="delete" data-url="{{url('Dashboard/select-custom-update')}}" name="permation[]"  data-page="{{$page->page_name}}" value="customDelete-{{$page->page_name}}" disabled >
                                                                 <label class="form-check-label" for="custom-{{$page->page_name}}"> Custom Delete </label>
 
                                                             </div>
