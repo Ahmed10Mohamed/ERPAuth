@@ -5,7 +5,7 @@
   class="light-style layout-navbar-fixed layout-menu-fixed"
   dir="ltr"
   data-theme="theme-default"
-  @if(env('APP_URL') == 'http://127.0.0.1:8000') data-assets-path="http://127.0.0.1:8000/admin/" @else   data-assets-path="https://admin.cyberzai.com/admin/" @endif
+  @if(env('APP_URL') == 'http://127.0.0.1:8000') data-assets-path="https://dash.fatshly.com/public/admin/" @else   data-assets-path="https://admin.cyberzai.com/admin/" @endif
   data-template="vertical-menu-template"
 >
   <head>
