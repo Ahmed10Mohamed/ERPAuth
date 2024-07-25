@@ -29,7 +29,8 @@
                                        <div class="col-6">
                                             <div class="mb-3">
                                                 <label class="form-label" for="Roles">Select Role <span style="color:#f00">*</span></label>
-                                                <select id="select2Basic" name="role_id" class="select2 form-select form-select-lg select2-hidden-accessible" data-allow-clear="true" data-select2-id="select2Basic" tabindex="-1" aria-hidden="true">
+                                                <select id="select2Basic" name="role_id" class="select2 form-select form-select-lg select2-hidden-accessible" data-allow-clear="true" data-select2-id="select2Basic" tabindex="-1" aria-hidden="true" required>
+                                                            <option value="">Select Role</option>
                                                             @foreach ($roles as $role )
                                                                 <option value="{{$role->id}}" data-select2-id="{{$role->id}}" @selected($role->id == old('role_id')) >{{$role->name}}</option>
 
@@ -67,16 +68,23 @@
                                                                 <label class="form-check-label" for="update-{{$page->page_name}}"> Update </label>
                                                             </div>
                                                             <div class="form-check me-3 me-lg-5">
-                                                                <input class="form-check-input check_custom_update_page" type="checkbox" data-id="{{$page->id}}" id="custom_update-{{$page->id}}" data-url="{{url('Dashboard/select-custom-update')}}" name="permation[]"  data-page="{{$page->page_name}}" value="customUpdate-{{$page->page_name}}" disabled >
+                                                                <input class="form-check-input check_custom_update_page" type="checkbox" data-page_id="{{$page->page_name}}" data-id="{{$page->id}}" id="custom_update-{{$page->id}}" data-type="update" data-url="{{url('Dashboard/select-custom-update')}}" name="permation[]"  data-page="{{$page->page_name}}" value="customUpdate-{{$page->page_name}}" disabled >
                                                                 <label class="form-check-label" for="custom-{{$page->page_name}}"> Custom Update </label>
 
                                                             </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input perm-{{$page->id}} "  type="checkbox" id="delete-{{$page->page_name}}" name="permation[]" value="delete-{{$page->page_name}}" >
+                                                            <div class="form-check me-3 me-lg-5">
+                                                                <input class="form-check-input delete_col perm-{{$page->id}} " data-id="{{$page->id}}"  type="checkbox" id="delete-{{$page->page_name}}"  name="permation[]" value="delete-{{$page->page_name}}" >
                                                                 <label class="form-check-label" for="delete-{{$page->page_name}}"> Delete </label>
                                                             </div>
+                                                            <div class="form-check ">
+                                                                <input class="form-check-input check_custom_update_page" type="checkbox" data-page_id="{{$page->page_name}}" data-id="{{$page->id}}"  id="custom_delete-{{$page->id}}" data-type="delete" data-url="{{url('Dashboard/select-custom-update')}}" name="permation[]"  data-page="{{$page->page_name}}" value="customUDelete-{{$page->page_name}}" disabled >
+                                                                <label class="form-check-label" for="custom-{{$page->page_name}}"> Custom Delete </label>
+
+                                                            </div>
                                                         </div>
-                                                        <div class="row custom_page" id="customPage-{{$page->id}}"></div>
+                                                        <div class="row custom_page" id="customPage-{{$page->page_name}}"></div>
+                                                        <div class="row custom_page" id="customPageDelete-{{$page->page_name}}"></div>
+
                                                         <hr>
 
                                                 @endforeach
@@ -111,86 +119,6 @@
         <!-- Content -->
 @endsection
 @section('script')
-<script>
-     $(document).ready(function(){
-        // Check all inputs with the same ID
-        $('.checkAll').click(function(){
-            var main_id = $(this).attr('data-id');
-            var checkboxes = $('.perm-' + main_id);
-            var allChecked = checkboxes.length === checkboxes.filter(':checked').length;
-
-            // Toggle based on current state
-            checkboxes.prop('checked', !allChecked);
-        });
-
-    });
-
-    $(document).ready(function(){
-        $('body').on('change', '.col_type', function() {
-            // Get the selected option
-            var selectedOption = $(this).find('option:selected');
-            // Get the data-type attribute of the selected option
-            var dataType = selectedOption.data('type');
-            var id = $(this).attr('data-id');
-            // Output the value of data-type (for demonstration purposes)
-
-            $('#db_type-'+id).val(dataType);
-        });
-    });
-
-    $(document).ready(function(){
-
-
-        $('.update_col').change(function() {
-            var id = $(this).attr('data-id');
-
-            if ($(this).is(':checked')) {
-
-                $('#custom_update-'+id).prop('disabled',false);
-            }else{
-                $('#custom_update-'+id).prop('disabled',true);
-                $('#custom_update-'+id).prop('checked',false);
-                $('#customPage-' + id).hide();
-
-            }
-
-        });
-    });
-
-
-
-    $(document).ready(function() {
-    $('body').on('change', '.check_custom_update_page', function() {
-        var page = $(this).attr('data-page');
-        var url = $(this).attr('data-url');
-        var id = $(this).attr('data-id');
-
-        if ($(this).is(':checked')) {
-            // If checked, make AJAX request and update the content
-            $.ajax({
-                type: 'GET',
-                data: {
-                    page: page,
-                    id: id
-                },
-                url: url,
-                success: function(data) {
-                    $('#customPage-' + id).html(data).show();
-
-                }
-            });
-        } else {
-            // If unchecked, hide the element
-            $('#customPage-' + id).hide();
-
-
-        }
-    });
-});
-
-
-</script>
-
-
+ <script src="{{asset('admin/js/permission.js')}}"></script>
 
 @endsection

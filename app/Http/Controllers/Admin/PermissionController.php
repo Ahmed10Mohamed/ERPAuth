@@ -39,7 +39,8 @@ class PermissionController extends Controller
     public function select_custom_update(Request $request){
         $page_data = Page::find($request->id);
         $page = $request->page;
-        return view('admin.pages.permation.custom_update',compact('page','page_data'));
+        $type = $request->type;
+        return view('admin.pages.permation.custom_update',compact('page','page_data','type'));
     }
 
     /**
@@ -97,6 +98,11 @@ class PermissionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $data = $this->permissionRepository->destroy($id);
+        if($data === 'error'){
+            return redirect()->back()->with('fail','Opps! Try Again Later');
+        }else{
+            return redirect()->route('Permation.index')->with('success','Deleted Success');
+        }
     }
 }

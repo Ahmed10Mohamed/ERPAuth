@@ -5,8 +5,8 @@ use App\Models\Employee;
 use App\Models\Product;
 use App\Models\User;
 
-function customs_updats_page_permation($page,$permission_id){
-    $permissions = CustomUpdate::where(['page_custom'=>$page,'permition_id'=>$permission_id])->get();
+function customs_updats_delete_page_permation($page,$permission_id,$page_type){
+    $permissions = CustomUpdate::where(['page_custom'=>$page,'permition_id'=>$permission_id,'page_type'=>$page_type])->first();
     return $permissions;
 }
 if (!function_exists('redirect_if_no_permission')) {
