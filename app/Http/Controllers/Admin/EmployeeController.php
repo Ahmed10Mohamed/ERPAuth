@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\EmpRequest;
 use App\Http\Requests\Admin\UserRequest;
+use App\Models\Employee;
 use App\Models\Repositories\Admin\EmpRepository;
 use Illuminate\Http\Request;
 
@@ -22,6 +23,8 @@ class EmployeeController extends Controller
             return $redirect;
         }
         $class = 'emp';
+        // $cols = new Employee();
+        // dd($cols->getTableColumns());
         $all_data = $this->empRepository->index();
         return view('admin.pages.emp.index',compact('all_data','class'));
     }

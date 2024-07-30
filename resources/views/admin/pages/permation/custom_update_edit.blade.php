@@ -1,11 +1,8 @@
 <div class="row custom_page" id="customPage-{{$page->page_name}}">
 <h4 class="text-nowrap fw-semibold"><span>Custom Update Of Page:-</span>{{$custom_update->page_custom}}</h4>
     <input type="hidden" name="page_custom[]" value="{{$custom_update->page_custom}}" >
-    @if($custom_update->page_custom == 'products')
-        @include('admin.pages.permation.tables.edit_products',['custom_update'=>$custom_update])
-    @else
-        @include('admin.pages.permation.tables.edit_users_emp',['custom_update'=>$custom_update])
-    @endif
+    @include('admin.pages.permation.tables.edit_name',['custom_update'=>$custom_update])
+
     <div class="col-4">
         <div class="mb-3">
             <label class="form-label" for="Roles">Select exp <span style="color:#f00">*</span></label>
@@ -14,6 +11,7 @@
                 <option value="=" data-select2-id="=" @if($custom_update->exp == '=') selected @endif >equal</option>
                 <option value=">=" data-select2-id=">=" @if($custom_update->exp == '>=') selected @endif  >bigger</option>
                 <option value="<=" data-select2-id="<=" @if($custom_update->exp == '<=') selected @endif  >smaller</option>
+                <option value="search" data-select2-id="search" @if($custom_update->exp == 'search') selected @endif  >search</option>
 
             </select>
         </div>

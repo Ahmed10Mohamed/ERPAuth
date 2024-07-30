@@ -2,11 +2,12 @@
     <h4 class="text-nowrap fw-semibold"><span>custom @if($type == 'update' ) Update @else Delete @endif Of Page:-</span>{{$page_data->page_name}}</h4>
                 <input type="hidden" name="page_custom[]" value="{{$page_data->page_name}}" >
                 <input type="hidden" name="page_type[]" value="{{$type}}" >
-                @if($page == 'products')
-                    @include('admin.pages.permation.tables.products')
-                @else
-                    @include('admin.pages.permation.tables.users_emp')
-                @endif
+
+
+                    @include('admin.pages.permation.tables.names')
+
+
+               
                 <input type="hidden" class="form-control" value="{{old('db_type')}}" required name="db_type[]" id="db_type-{{$type}}-{{$page_data->page_name}}"  />
             <div class="col-4">
             <div class="mb-3">
@@ -16,6 +17,7 @@
                     <option value="=" data-select2-id="=">equal</option>
                     <option value=">=" data-select2-id=">=">bigger</option>
                     <option value="<=" data-select2-id="<=">smaller</option>
+                    <option value="search" data-select2-id="search">search</option>
 
                 </select>
             </div>

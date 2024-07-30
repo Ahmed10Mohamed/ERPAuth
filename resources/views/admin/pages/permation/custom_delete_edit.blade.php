@@ -2,11 +2,9 @@
 
 <h4 class="text-nowrap fw-semibold"><span>Custom Delete Of Page:-</span>{{$custom_delete->page_custom}}</h4>
     <input type="hidden" name="page_custom[]" value="{{$custom_delete->page_custom}}" >
-    @if($custom_delete->page_custom == 'products')
-        @include('admin.pages.permation.tables.edit_products',['custom_update'=>$custom_delete])
-    @else
-        @include('admin.pages.permation.tables.edit_users_emp',['custom_update'=>$custom_delete])
-    @endif
+  
+    @include('admin.pages.permation.tables.edit_name',['custom_update'=>$custom_delete])
+
     <div class="col-4">
         <div class="mb-3">
             <label class="form-label" for="Roles">Select exp <span style="color:#f00">*</span></label>
@@ -15,6 +13,7 @@
                 <option value="=" data-select2-id="=" @if($custom_delete->exp == '=') selected @endif >equal</option>
                 <option value=">=" data-select2-id=">=" @if($custom_delete->exp == '>=') selected @endif  >bigger</option>
                 <option value="<=" data-select2-id="<=" @if($custom_delete->exp == '<=') selected @endif  >smaller</option>
+                <option value="search" data-select2-id="search" @if($custom_delete->exp == 'search') selected @endif  >search</option>
 
             </select>
         </div>

@@ -17,24 +17,27 @@ class PageSeeder extends Seeder
 
                 [
                     'page_name' => 'products',
+                    'model_name'=> 'Product',
                     'created_at'=>now(),
                     'updated_at'=>now(),
-    
+
                 ],
                 [
                     'page_name' => 'users',
+                    'model_name'=> 'User',
                     'created_at'=>now(),
                     'updated_at'=>now(),
-    
+
                 ],
                 [
                     'page_name' => 'emp',
+                    'model_name'=> 'Employee',
                     'created_at'=>now(),
                     'updated_at'=>now(),
-    
+
                 ],
             ]);
-            
+
         }
 
 }

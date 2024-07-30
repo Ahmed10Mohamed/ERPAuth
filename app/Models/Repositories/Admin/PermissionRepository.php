@@ -53,7 +53,7 @@ class PermissionRepository
                         'db_type'=>$request->db_type[$key],
                         'value'=>$request->value[$key],
                         'page_type'=>$request->page_type[$key],
-
+                        'model_name'=>$request->model_name[$key],
                     ]);
                 }
             }
@@ -94,6 +94,7 @@ class PermissionRepository
                         'db_type'=>$request->db_type[$key],
                         'page_type'=>$request->page_type[$key],
                         'value'=>$request->value[$key],
+                        'model_name'=>$request->model_name[$key],
                     ]);
                 }
             }

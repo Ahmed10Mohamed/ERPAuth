@@ -9,6 +9,6 @@ class CustomUpdate extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'col','exp','db_type','value','permition_id','page_custom','page_type'
+        'col','exp','db_type','value','permition_id','page_custom','page_type','model_name'
     ];
 }

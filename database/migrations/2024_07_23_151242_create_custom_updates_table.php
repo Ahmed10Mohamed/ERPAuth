@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('value')->nullable();
             $table->string('page_custom')->nullable();
             $table->string('page_type')->nullable();
+            $table->string('model_name')->nullable();
             $table->foreignId("permition_id")->nullable()->constrained("permissions")->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
