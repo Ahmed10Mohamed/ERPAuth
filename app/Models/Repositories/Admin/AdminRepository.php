@@ -7,6 +7,7 @@ use App\Models\AdminPermission;
 use App\Models\Category;
 use App\Models\CategoryRequest;
 use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -20,7 +21,7 @@ class AdminRepository
         return $admins;
     }
     public function permition(){
-        $permitions = Permission::orderBy('id', 'DESC')->get();
+        $permitions = Role::whereHas('permetions')->orderBy('id', 'DESC')->get();
         return $permitions;
     }
     public function show($id){
@@ -37,18 +38,18 @@ class AdminRepository
             $data['added_by']=admin()->id;
             $data['password']=bcrypt($request->password);
             $admin= Admin::create($data);
-           if ($request->has('permission')) {
-            foreach ($request->permission as $permission) {
-                AdminPermission::create([
-                    'admin' => $admin->id,
-                    'permission' => $permission,
-                ]);
-            }
-        }
+            // if ($request->has('permission')) {
+            //     foreach ($request->permission as $permission) {
+            //         AdminPermission::create([
+            //             'admin' => $admin->id,
+            //             'permission' => $permission,
+            //         ]);
+            //     }
+            // }
             DB::commit();
 
         } catch (\Exception $e) {
-            //  dd($e);
+           dd($e);
             DB::rollback();
            return 'error';
         }

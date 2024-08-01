@@ -29,8 +29,9 @@
                                        <div class="col-6">
                                             <div class="mb-3">
                                                 <label class="form-label" for="Roles">Select Role <span style="color:#f00">*</span></label>
-                                                <select id="select2Basic" name="role_id" class="select2 form-select form-select-lg select2-hidden-accessible" data-allow-clear="true" data-select2-id="select2Basic" tabindex="-1" aria-hidden="true" required>
-                                                            <option value="">Select Role</option>
+                                                <select class="select2 form-select select2-hidden-accessible " name="role_id" data-allow-clear="true" data-select2-id="collapsible-state" tabindex="-1" aria-hidden="true" required>
+
+                                                <option value="">Select Role</option>
                                                             @foreach ($roles as $role )
                                                                 <option value="{{$role->id}}" data-select2-id="{{$role->id}}" @selected($role->id == old('role_id')) >{{$role->name}}</option>
 
@@ -38,59 +39,28 @@
                                                         </select>
                                             </div>
                                         </div>
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="Page">Select Page <span style="color:#f00">*</span></label>
+
+                                                <select class="select2 form-select select2-hidden-accessible select_page" name="page_id" data-allow-clear="true" data-select2-id="collapsible-state" tabindex="-1" aria-hidden="true" required data-url="{{ route('PageSelect') }}">
+                                                <option value="">Select Page</option>
+                                                    @foreach ($pages as $page)
+                                                        <option value="{{ $page->id }}" data-select2-id="{{ $page->id }}" @selected($page->id == old('page_id'))>
+                                                            {{ $page->page_name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+
+
+                                            </div>
+                                        </div>
 
                                     </div>
 
 
                                     <hr>
-                                       {{-- permission --}}
-                                       <div class="col-12">
-                                        <h5>Role Permissions</h5>
-                                        <!-- Permission table -->
-                                                @foreach ($pages as $page)
-                                                    <h4 class="text-nowrap fw-semibold"><span>Page Name:-</span>{{$page->page_name}}</h4>
-                                                        <input type="hidden" name="page[]" value="{{$page->page_name}}" >
-                                                        <div class="d-flex">
-                                                            <div class="form-check me-3 me-lg-5">
-                                                                <input class="form-check-input checkAll" data-id="{{$page->id}}"  type="checkbox" id="all-{{$page->page_name}}" name="permation[]" value="all-{{$page->page_name}}" >
-                                                                <label class="form-check-label" for="all-{{$page->page_name}}"> All </label>
-                                                            </div>
-                                                            <div class="form-check me-3 me-lg-5">
-                                                                <input class="form-check-input read_col perm-{{$page->id}}" type="checkbox" data-id={{$page->id }} id="read-{{$page->page_name}}" name="permation[]" value="read-{{$page->page_name}}" >
-                                                                <label class="form-check-label" for="read-{{$page->page_name}}" > Read </label>
-                                                            </div>
-                                                            <div class="form-check me-3 me-lg-5">
-                                                                <input class="form-check-input perm-{{$page->id}} "  type="checkbox" id="insert-{{$page->page_name}}" name="permation[]" value="insert-{{$page->page_name}}" >
-                                                                <label class="form-check-label" for="insert-{{$page->page_name}}"> Insert </label>
-                                                            </div>
-                                                            <div class="form-check me-3 me-lg-5">
-                                                                <input class="form-check-input update_col perm-{{$page->id}} " data-id="{{$page->id}}"  type="checkbox" id="update-{{$page->page_name}}" name="permation[]" value="update-{{$page->page_name}}"  >
-                                                                <label class="form-check-label" for="update-{{$page->page_name}}"> Update </label>
-                                                            </div>
-                                                            <div class="form-check me-3 me-lg-5">
-                                                                <input class="form-check-input check_custom_update_page" type="checkbox" data-page_id="{{$page->page_name}}" data-id="{{$page->id}}" id="custom_update-{{$page->id}}" data-type="update" data-url="{{url('Dashboard/select-custom-update')}}" name="permation[]"  data-page="{{$page->page_name}}" value="customUpdate-{{$page->page_name}}" disabled >
-                                                                <label class="form-check-label" for="custom-{{$page->page_name}}"> Custom Update </label>
-
-                                                            </div>
-                                                            <div class="form-check me-3 me-lg-5">
-                                                                <input class="form-check-input delete_col perm-{{$page->id}} " data-id="{{$page->id}}"  type="checkbox" id="delete-{{$page->page_name}}"  name="permation[]" value="delete-{{$page->page_name}}" >
-                                                                <label class="form-check-label" for="delete-{{$page->page_name}}"> Delete </label>
-                                                            </div>
-                                                            <div class="form-check ">
-                                                                <input class="form-check-input check_custom_update_page" type="checkbox" data-page_id="{{$page->page_name}}" data-id="{{$page->id}}"  id="custom_delete-{{$page->id}}" data-type="delete" data-url="{{url('Dashboard/select-custom-update')}}" name="permation[]"  data-page="{{$page->page_name}}" value="customDelete-{{$page->page_name}}" disabled >
-                                                                <label class="form-check-label" for="custom-{{$page->page_name}}"> Custom Delete </label>
-
-                                                            </div>
-                                                        </div>
-                                                        <div class="row custom_page" id="customPage-{{$page->page_name}}"></div>
-                                                        <div class="row custom_page" id="customPageDelete-{{$page->page_name}}"></div>
-
-                                                        <hr>
-
-                                                @endforeach
-
-
-                                        </div>
+                                    <div id="page_data"></div>
 
                                        <!-- end permission -->
 

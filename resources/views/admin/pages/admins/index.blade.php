@@ -46,7 +46,7 @@
                                         <td>{{ $data->name }}</td>
                                         <td>{{ $data->email }}</td>
                                         <td>{{ $data->phone }}</td>
-                                        <td>{{ optional($data->permition_info->role_info)->name}}</td>
+                                        <td>{{ optional($data->role_info)->name}}</td>
 
                                         <td>
                                             <div class="dropdown">

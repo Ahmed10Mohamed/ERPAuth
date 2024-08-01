@@ -18,11 +18,11 @@ class Admin extends Authenticatable
      */
 
     protected $fillable = [
-        'name', 'email', 'password','user_name','phone','image','added_by','updated_by','deleted_by','permition_id'
+        'name', 'email', 'password','user_name','phone','image','added_by','updated_by','deleted_by','role_id'
     ];
-    public function permition_info()
+    public function role_info()
     {
-        return $this->belongsTo(Permission::class,'permition_id');
+        return $this->belongsTo(Role::class,'role_id');
     }
 
     /**

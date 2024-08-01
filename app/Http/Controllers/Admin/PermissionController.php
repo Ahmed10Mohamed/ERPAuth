@@ -29,6 +29,11 @@ class PermissionController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+    public function select_page(Request $request){
+        $page = Page::findOrfail($request->id);
+        return view('admin.pages.permation.select_page',compact('page'));
+
+    }
     public function create()
     {
         $class = 'permation';
@@ -71,11 +76,8 @@ class PermissionController extends Controller
     public function edit(string $id)
     {
         $data = $this->permissionRepository->show($id);
-        $permations = explode(',',$data->permation);
         $class = 'permation';
-        $roles = $this->permissionRepository->roles();
-        $pages = $this->permissionRepository->pages();
-        return view('admin.pages.permation.edit',compact('permations','data','roles','class','pages'));
+        return view('admin.pages.permation.edit',compact('data','class'));
 
     }
 

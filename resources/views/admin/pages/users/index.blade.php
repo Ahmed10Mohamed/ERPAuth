@@ -13,7 +13,7 @@
                         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Users</h4>
                     </div>
 
-                     @if(check_has_permission('insert-users'))
+                     @if(check_has_permission('users','is_create'))
                     <div class="col-md-8">
                         <div
                             class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0">
@@ -51,7 +51,7 @@
                                         <td>{{ $data->phone }}</td>
 
                                             <td>
-                                                @if(check_has_permission('update-users','customUpdate-users','users',$data->id) || check_has_permission('delete-users','customDelete-users','users',$data->id) )
+                                                @if(check_has_permission('users','is_update','update','users',$data->id) || check_has_permission('users','is_delete','delete','users',$data->id) )
 
                                                     <div class="dropdown">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -59,12 +59,12 @@
                                                             <i class="ti ti-dots-vertical"></i>
                                                         </button>
                                                         <div class="dropdown-menu">
-                                                        @if(check_has_permission('update-users','customUpdate-users','users',$data->id))
+                                                        @if(check_has_permission('users','is_update','update','users',$data->id))
                                                             <a class="dropdown-item" href="{{ route('User.edit', $data->id) }}"><i
                                                                     class="ti ti-pencil me-1"></i> Edit</a>
                                                             @endif
 
-                                                            @if(check_has_permission('delete-users','customDelete-users','users',$data->id))
+                                                            @if(check_has_permission('users','is_delete','delete','users',$data->id))
                                                             <a class="dropdown-item" data-bs-toggle="modal"
                                                                 data-bs-target="#basicModal-{{ $data->id }}"><i
                                                                     class="ti ti-trash me-1"></i> Delete</a>

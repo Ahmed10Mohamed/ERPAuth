@@ -14,8 +14,15 @@ return new class extends Migration
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
             $table->string('page')->nullable();
-            $table->string('permation')->nullable();
             $table->foreignId("role_id")->nullable()->constrained("roles")->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId("page_id")->nullable()->constrained("pages")->cascadeOnDelete()->cascadeOnUpdate();
+            $table->boolean('is_read')->default(0);
+            $table->boolean('is_create')->default(0);
+            $table->boolean('is_update')->default(0);
+            $table->boolean('is_delete')->default(0);
+            $table->boolean('is_custom_update')->default(0);
+            $table->boolean('is_custom_delete')->default(0);
+
             $table->timestamps();
         });
     }

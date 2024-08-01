@@ -128,14 +128,14 @@
                         <span class="menu-header-text">Dashboard</span>
                     </li>
                                    <!--admins -->
-                            @if(check_has_permission('users') || check_has_permission('emp'))
+                            @if(check_has_permission('users','is_read') || check_has_permission('emp','is_read'))
                             <li class="menu-item @if($class == 'users' || $class == 'emp') open @endif">
                                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                                     <i class="menu-icon tf-icons ti ti-users"></i>
                                     <div data-i18n="User&Employee">User&Employee</div>
                                 </a>
                                 <ul class="menu-sub">
-                                     @if(check_has_permission('users'))
+                                     @if(check_has_permission('users','is_read'))
 
                                     <li class="menu-item @if ($class == 'users') active @endif">
                                         <a href="{{ route('User.index') }}" class="menu-link">
@@ -143,7 +143,7 @@
                                         </a>
                                     </li>
                                     @endif
-                                    @if(check_has_permission('emp'))
+                                    @if(check_has_permission('emp','is_read'))
 
                                     <li class="menu-item @if ($class == 'emp') active @endif">
                                         <a href="{{ route('Employee.index') }}" class="menu-link">
@@ -155,7 +155,7 @@
                             </li>
                             @endif
                                 <!--End admins -->
-                                @if(check_has_permission('product'))
+                                @if(check_has_permission('products','is_read'))
                                    <!--products -->
                         <li class="menu-item @if ($class == 'product') active @endif">
                             <a href="{{ route('Product.index') }}" class="menu-link ">

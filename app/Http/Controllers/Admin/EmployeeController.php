@@ -19,7 +19,7 @@ class EmployeeController extends Controller
 
     public function index()
     {
-        if ($redirect = redirect_if_no_permission('read-emp')) {
+        if ($redirect = redirect_if_no_permission('emp','is_read')) {
             return $redirect;
         }
         $class = 'emp';
@@ -39,7 +39,7 @@ class EmployeeController extends Controller
     {
 
         $class = 'emp';
-        if ($redirect = redirect_if_no_permission('insert-emp')) {
+        if ($redirect = redirect_if_no_permission('emp','is_create')) {
             return $redirect;
         }
          return view('admin.pages.emp.create',compact('class'));
@@ -67,7 +67,7 @@ class EmployeeController extends Controller
     public function edit($id)
     {
         $class = 'emp';
-        if ($redirect = redirect_if_no_permission('update-emp','customUpdate-emp','emp',$id)) {
+        if ($redirect = redirect_if_no_permission('emp','is_update','update','emp',$id)) {
             return $redirect;
         }
 
@@ -106,7 +106,7 @@ class EmployeeController extends Controller
 
     public function destroy($id)
     {
-        if ($redirect = redirect_if_no_permission('delete-emp','customDelete-emp','emp',$id)) {
+        if ($redirect = redirect_if_no_permission('emp','is_delete','delete','emp',$id)) {
 
             return $redirect;
         }

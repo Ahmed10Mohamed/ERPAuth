@@ -69,9 +69,9 @@
                                        <div class="col-6">
                                             <div class="mb-3">
                                                 <label class="form-label" for="Roles">Select Role <span style="color:#f00">*</span></label>
-                                                <select id="select2Basic" name="permition_id" class="select2 form-select form-select-lg select2-hidden-accessible" data-allow-clear="true" data-select2-id="select2Basic" tabindex="-1" aria-hidden="true">
+                                                <select id="select2Basic" name="role_id" class="select2 form-select form-select-lg select2-hidden-accessible" data-allow-clear="true" data-select2-id="select2Basic" tabindex="-1" aria-hidden="true">
                                                             @foreach ($permitions as $permition )
-                                                                <option value="{{$permition->id}}" data-select2-id="{{$permition->id}}" @selected($permition->id == old('permition_id',$data->permition_id)) >{{optional($permition->role_info)->name}}</option>
+                                                                <option value="{{$permition->id}}" data-select2-id="{{$permition->id}}" @selected($permition->id == old('role_id',$data->permition_id)) >{{$permition->name}}</option>
 
                                                             @endforeach
                                                         </select>

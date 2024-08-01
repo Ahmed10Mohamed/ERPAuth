@@ -17,7 +17,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        if ($redirect = redirect_if_no_permission('read-products')) {
+        if ($redirect = redirect_if_no_permission('products','is_read')) {
             return $redirect;
         }
 
@@ -34,7 +34,7 @@ class ProductController extends Controller
 
     public function create()
     {
-        if ($redirect = redirect_if_no_permission('insert-products')) {
+        if ($redirect = redirect_if_no_permission('products','is_create')) {
             return $redirect;
         }
 
@@ -64,7 +64,7 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        if ($redirect = redirect_if_no_permission('update-products','customUpdate-products','products',$id)) {
+        if ($redirect = redirect_if_no_permission('products','is_update','update','products',$id)) {
 
             return $redirect;
         }
@@ -105,7 +105,7 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
-        if ($redirect = redirect_if_no_permission('delete-products')) {
+        if ($redirect = redirect_if_no_permission('products','is_delete')) {
             return $redirect;
         }
 

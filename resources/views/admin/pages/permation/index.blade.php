@@ -33,15 +33,55 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Role Name</th>
+                                    <th>page</th>
+                                    <th>Is Read</th>
+                                    <th>Is Create</th>
+                                    <th>Is Update</th>
+                                    <th>Is Delete</th>
+                                    <th>Is Custom Update</th>
+                                    <th>Is Custom Delete</th>
+
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
                                 @foreach ($all_data as $data)
-                                
+
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ optional($data->role_info)->name }}</td>
+
+                                        <td>{{ optional($data->page_info)->page_name }}</td>
+                                        <td>
+
+                                                <i @if($data->is_read == 1) class="far fa-check-circle accept" @else class="far fa-times-circle not_acceept" @endif></i>
+
+                                        </td>
+                                        <td>
+
+                                                <i @if($data->is_create == 1) class="far fa-check-circle accept" @else class="far fa-times-circle not_acceept" @endif></i>
+
+                                        </td>
+                                        <td>
+
+                                                <i @if($data->is_update == 1) class="far fa-check-circle accept" @else class="far fa-times-circle not_acceept" @endif></i>
+
+                                        </td>
+                                        <td>
+
+                                                <i @if($data->is_delete == 1) class="far fa-check-circle accept" @else class="far fa-times-circle not_acceept" @endif></i>
+
+                                        </td>
+                                        <td>
+                                                <i @if($data->is_custom_update == 1) class="far fa-check-circle accept" @else class="far fa-times-circle not_acceept" @endif></i>
+
+                                        </td>
+                                        <td>
+
+                                                <i @if($data->is_custom_delete == 1) class="far fa-check-circle accept" @else class="far fa-times-circle not_acceept" @endif></i>
+
+                                        </td>
+
 
 
                                         <td>

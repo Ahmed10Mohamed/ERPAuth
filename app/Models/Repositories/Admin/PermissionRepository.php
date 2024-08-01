@@ -35,11 +35,11 @@ class PermissionRepository
     }
     public function store($request)
     {
-        $data = $request->except(['_token','permation','page']);
+        $data = $request->except(['_token']);
+
        DB::beginTransaction();
        try {
-            $data['permation'] = implode(',',$request->permation);
-            $data['page'] = implode(',',$request->page);
+
             $per =Permission::create($data);
             if(isset($request->col)){
 
@@ -75,8 +75,6 @@ class PermissionRepository
        DB::beginTransaction();
        try {
 
-            $data['permation'] = implode(',',$request->permation);
-            $data['page'] = implode(',',$request->page);
             $permission->update($data);
             if(isset($request->col)){
 

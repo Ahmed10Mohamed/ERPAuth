@@ -4,7 +4,7 @@
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="py-3 mb-4 fw-bold"><span class="text-muted fw-light">Permations /</span>
-                Update Permation
+                Update
             </h4>
             {{-- start row --}}
             <div class="mb-4 row">
@@ -12,7 +12,7 @@
                 <div class="mb-4 col-md mb-md-0">
                   <div class="card">
                     <h5 class="card-header">
-                             Update Permation
+                             Update Permation role {{optional($data->role_info)->name}} - in page {{optional($data->page_info)->page_name}}
 
                     </h5>
                     <div class="card-body">
@@ -23,112 +23,94 @@
                               {{csrf_field()}}
                                         <input type="hidden" name="_method" value="PUT" />
 
-
-                                    <div class="row">
-
-
-                                        {{-- Roles --}}
-                                       <div class="col-6">
-                                            <div class="mb-3">
-                                                <label class="form-label" for="Roles">Select Role <span style="color:#f00">*</span></label>
-                                                <select id="select2Basic" name="role_id" class="select2 form-select form-select-lg select2-hidden-accessible" data-allow-clear="true" data-select2-id="select2Basic" tabindex="-1" aria-hidden="true">
-                                                            @foreach ($roles as $role )
-                                                                <option value="{{$role->id}}" data-select2-id="{{$role->id}}" @selected($role->id == old('role_id',$data->role_id)) >{{$role->name}}</option>
-
-                                                            @endforeach
-                                                        </select>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-
                                     <hr>
                                        {{-- permission --}}
                                        <div class="row">
                                        <div class="col-12 ">
                                         <h5>Role Permissions</h5>
-                                        <!-- Permission table -->
-                                        @foreach ($pages as $page)
+                                                                              <!-- Permission table -->
                                             @php
-                                                $custom_update = customs_updats_delete_page_permation($page->page_name,$data->id,'update');
+                                                $custom_update = customs_updats_delete_page_permation(optional($data->page_info)->page_name,$data->id,'update');
 
-                                                $custom_delete = customs_updats_delete_page_permation($page->page_name,$data->id,'delete');
+                                                $custom_delete = customs_updats_delete_page_permation(optional($data->page_info)->page_name,$data->id,'delete');
 
                                             @endphp
 
-                                            <h4 class="text-nowrap fw-semibold"><span>Page Name:-</span>{{$page->page_name}}</h4>
-                                            <input type="hidden" name="page[]" value="{{$page->page_name}}">
+                                            <h4 class="text-nowrap fw-semibold"><span>Page Name:-</span>{{optional($data->page_info)->page_name}}</h4>
+                                            <input type="hidden" name="page_id" value="{{$data->page_id}}">
+                                            <input type="hidden" name="role_id" value="{{$data->role_id}}">
+
                                                 <div class="d-flex">
                                                     <div class="form-check me-3 me-lg-5">
-                                                        <input class="form-check-input checkAll" data-id="{{$page->id}}" type="checkbox" id="all-{{$page->page_name}}" name="permation[]" value="all-{{$page->page_name}}" {{ in_array("all-{$page->page_name}", $permations) ? 'checked' : '' }}>
-                                                        <label class="form-check-label" for="all-{{$page->page_name}}"> All </label>
+                                                        <input class="form-check-input checkAll" data-id="{{$data->page_id}}" type="checkbox" id="all-{{optional($data->page_info)->page_name}}" >
+                                                        <label class="form-check-label" for="all-{{optional($data->page_info)->page_name}}"> All </label>
                                                     </div>
                                                     <div class="form-check me-3 me-lg-5">
-                                                        <input class="form-check-input read_col perm-{{$page->id}}" type="checkbox" data-id="{{$page->id}}" id="read-{{$page->page_name}}" name="permation[]" value="read-{{$page->page_name}}" {{ in_array("read-{$page->page_name}", $permations) ? 'checked' : '' }}>
-                                                        <label class="form-check-label" for="read-{{$page->page_name}}"> Read </label>
+                                                        <input class="form-check-input read_col perm-{{$data->page_id}}" type="checkbox" data-id="{{$data->page_id}}" id="read-{{optional($data->page_info)->page_name}}" name="is_read" value="1" @if($data->is_read) checked @endif >
+                                                        <label class="form-check-label" for="read-{{optional($data->page_info)->page_name}}"> Read </label>
                                                     </div>
                                                     <div class="form-check me-3 me-lg-5">
-                                                        <input class="form-check-input perm-{{$page->id}}" type="checkbox" id="insert-{{$page->page_name}}" name="permation[]" value="insert-{{$page->page_name}}" {{ in_array("insert-{$page->page_name}", $permations) ? 'checked' : '' }}>
-                                                        <label class="form-check-label" for="insert-{{$page->page_name}}"> Insert </label>
+                                                        <input class="form-check-input perm-{{$data->page_id}}" type="checkbox" id="insert-{{optional($data->page_info)->page_name}}" name="is_create" value="1" value="1" @if($data->is_create) checked @endif>
+                                                        <label class="form-check-label" for="insert-{{optional($data->page_info)->page_name}}"> Insert </label>
                                                     </div>
                                                     <div class="form-check me-3 me-lg-5">
-                                                        <input class="form-check-input update_col perm-{{$page->id}}" data-id="{{$page->id}}" type="checkbox" id="update-{{$page->page_name}}" name="permation[]" value="update-{{$page->page_name}}" {{ in_array("update-{$page->page_name}", $permations) ? 'checked' : '' }}>
-                                                        <label class="form-check-label" for="update-{{$page->page_name}}"> Update </label>
+                                                        <input class="form-check-input update_col perm-{{$data->page_id}}" data-id="{{$data->page_id}}" type="checkbox" id="update-{{optional($data->page_info)->page_name}}" name="is_update" value="1" value="1" @if($data->is_update) checked @endif>
+                                                        <label class="form-check-label" for="update-{{optional($data->page_info)->page_name}}"> Update </label>
                                                     </div>
                                                     <div class="form-check me-3 me-lg-5">
                                                     <input class="form-check-input check_custom_update_page"
                                                         type="checkbox"
-                                                        data-page_id="{{$page->page_name}}"
-                                                        data-id="{{$page->id}}"
-                                                        id="custom_update-{{$page->id}}"
+                                                        data-page_id="{{optional($data->page_info)->page_name}}"
+                                                        data-id="{{$data->page_id}}"
+                                                        id="custom_update-{{$data->page_id}}"
                                                         data-type="update"
                                                         data-url="{{url('Dashboard/select-custom-update')}}"
-                                                        name="permation[]"
-                                                        data-page="{{$page->page_name}}"
-                                                        value="customUpdate-{{$page->page_name}}"
-                                                        {{ in_array("customUpdate-{$page->page_name}", $permations) ? 'checked' : '' }}
-                                                        {{ !in_array("update-{$page->page_name}", $permations) ? 'disabled' : '' }}>
+                                                        name="is_custom_update"
+                                                        data-page="{{optional($data->page_info)->page_name}}"
+                                                        value="1"
+                                                         @if($data->is_custom_update) checked @endif
+                                                         @if(!$data->is_update) disabled @endif>
 
-                                                        <label class="form-check-label" for="custom-{{$page->page_name}}"> Custom Update </label>
+                                                        <label class="form-check-label" for="custom-{{optional($data->page_info)->page_name}}"> Custom Update </label>
                                                     </div>
                                                     <div class="form-check me-3 me-lg-5">
-                                                        <input class="form-check-input delete_col perm-{{$page->id}} " data-id="{{$page->id}}"  type="checkbox" id="delete-{{$page->page_name}}"  name="permation[]" value="delete-{{$page->page_name}}" {{ in_array("delete-{$page->page_name}", $permations) ? 'checked' : '' }} >
+                                                        <input class="form-check-input delete_col perm-{{$data->page_id}} " data-id="{{$data->page_id}}"  type="checkbox" id="delete-{{optional($data->page_info)->page_name}}"  name="is_delete" value="1" @if($data->is_delete) checked @endif >
 
-                                                        <label class="form-check-label" for="delete-{{$page->page_name}}"> Delete </label>
+                                                        <label class="form-check-label" for="delete-{{optional($data->page_info)->page_name}}"> Delete </label>
                                                     </div>
                                                     <div class="form-check ">
                                                     <input class="form-check-input check_custom_update_page"
                                                         type="checkbox"
-                                                        data-page_id="{{$page->page_name}}"
-                                                        data-id="{{$page->id}}"
-                                                        id="custom_delete-{{$page->id}}"
+                                                        data-page_id="{{optional($data->page_info)->page_name}}"
+                                                        data-id="{{$data->page_id}}"
+                                                        id="custom_delete-{{$data->page_id}}"
                                                         data-type="delete"
                                                         data-url="{{url('Dashboard/select-custom-update')}}"
-                                                        name="permation[]"
-                                                        data-page="{{$page->page_name}}"
-                                                        value="customDelete-{{$page->page_name}}"
-                                                        {{ in_array("customDelete-{$page->page_name}", $permations) ? 'checked' : '' }}
-                                                        {{ !in_array("delete-{$page->page_name}", $permations) ? 'disabled' : '' }}>
+                                                        name="is_custom_delete"
+                                                        data-page="{{optional($data->page_info)->page_name}}"
+                                                        value="1"
+                                                        @if($data->is_custom_delete) checked @endif
 
-                                                        <label class="form-check-label" for="custom-{{$page->page_name}}"> Custom Delete </label>
+                                                        @if(!$data->is_delete) disabled @endif >
+                                                        <label class="form-check-label" for="custom-{{optional($data->page_info)->page_name}}"> Custom Delete </label>
 
                                                     </div>
                                                 </div>
                                                 @if($custom_update)
-                                                     @include('admin.pages.permation.custom_update_edit',['custom_update'=>$custom_update,'page'=>$page])
+                                                     @include('admin.pages.permation.custom_update_edit',['custom_update'=>$custom_update,'page'=>optional($data->page_info)])
                                                      @else
-                                                     <div class="row custom_page" id="customPage-{{$page->page_name}}"></div>
+                                                     <div class="row custom_page" id="customPage-{{optional($data->page_info)->page_name}}"></div>
                                                      @endif
                                                      @if($custom_delete)
-                                                     @include('admin.pages.permation.custom_delete_edit',['custom_delete'=>$custom_delete,'page'=>$page])
+                                                     @include('admin.pages.permation.custom_delete_edit',['custom_delete'=>$custom_delete,'page'=>optional($data->page_info)])
                                                      @else
-                                                     <div class="row custom_page" id="customPageDelete-{{$page->page_name}}"></div>
+                                                     <div class="row custom_page" id="customPageDelete-{{optional($data->page_info)->page_name}}"></div>
 
                                                      @endif
                                             <hr>
 
-                                        @endforeach
+
+
 
 
 

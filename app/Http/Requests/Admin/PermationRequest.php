@@ -23,7 +23,7 @@ class PermationRequest extends FormRequest
     {
         return [
                 'role_id'=>'required|exists:roles,id|integer',
-                "permation"=>'required|array'
+                "page_id"=>'required'
                 ];
     }
 }

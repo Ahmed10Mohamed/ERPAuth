@@ -12,7 +12,7 @@
                     <div class="col-md-4">
                         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Products</h4>
                     </div>
-                    @if(check_has_permission('insert-products'))
+                    @if(check_has_permission('products','is_create'))
 
                     <div class="col-md-8">
                         <div
@@ -49,19 +49,19 @@
                                         <td>{{ $data->price }}</td>
 
                                         <td>
-                                                @if(check_has_permission('update-products','customUpdate-products','products',$data->id) || check_has_permission('delete-products','customDelete-products','products',$data->id) )
+                                                @if(check_has_permission('products','is_update','update','products',$data->id) || check_has_permission('products','is_delete','delete','products',$data->id) )
                                                 <div class="dropdown">
                                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                                         data-bs-toggle="dropdown">
                                                         <i class="ti ti-dots-vertical"></i>
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                    @if(check_has_permission('update-products','customUpdate-products','products',$data->id) )
+                                                    @if(check_has_permission('products','is_update','update','products',$data->id) )
                                                         <a class="dropdown-item" href="{{ route('Product.edit', $data->id) }}"><i
                                                                 class="ti ti-pencil me-1"></i> Edit</a>
 
                                                     @endif
-                                                    @if(check_has_permission('delete-products','customDelete-products','products',$data->id) )
+                                                    @if(check_has_permission('products','is_delete','delete','products',$data->id) )
 
                                                         <a class="dropdown-item" data-bs-toggle="modal"
                                                             data-bs-target="#basicModal-{{ $data->id }}"><i
